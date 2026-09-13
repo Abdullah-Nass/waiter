@@ -1,0 +1,71 @@
+{
+  "auth": {
+    "loginTitle": "Staff Terminal Login",
+    "enterPin": "Enter your PIN",
+    "invalidPin": "Invalid PIN. Please try again.",
+    "selectRole": "Select Role",
+    "logout": "Log Out",
+    "roles": {
+      "WAITER": "Waiter",
+      "KITCHEN": "Kitchen Staff"
+    }
+  },
+  "navigation": {
+    "tables": "Tables",
+    "orders": "Orders",
+    "kitchenQueue": "Kitchen Display",
+    "menu": "Menu Management",
+    "settings": "Settings"
+  },
+  "tables": {
+    "tableNumber": "Table {number}",
+    "openOrder": "New Order",
+    "viewActiveOrder": "View Order"
+  },
+  "orders": {
+    "ticketNumber": "Order #{id}",
+    "status": {
+      "sent": "Sent to Kitchen",
+      "in_progress": "In Progress",
+      "ready": "Ready for Pickup",
+      "served": "Served",
+      "cancelled": "Cancelled"
+    },
+    "itemsCount": "{count, plural, =1 {1 item} other {# items}}",
+    "notes": "Notes",
+    "addNotesPlaceholder": "e.g., No onions, dressing on the side...",
+    "fireOrder": "Send Order to Kitchen",
+    "markServed": "Mark as Served",
+    "total": "Total",
+    "emptyCart": "No items added yet",
+    "confirmSend": "Send order for Table {tableNumber}?"
+  },
+  "kitchen": {
+    "activeOrders": "Active Kitchen Orders",
+    "elapsedTime": "{minutes}m ago",
+    "startPreparing": "Start Preparing",
+    "markReady": "Mark as Ready",
+    "stationFilter": {
+      "all": "All Stations",
+      "kitchen": "Main Kitchen",
+      "bar": "Bar",
+      "grill": "Grill"
+    },
+    "noActiveOrders": "No pending orders in queue."
+  },
+  "notifications": {
+    "orderReadyTitle": "Order Ready!",
+    "orderReadyBody": "Order for Table {tableNumber} is ready for pickup.",
+    "newOrderAlert": "New order received for Table {tableNumber}",
+    "connectionLost": "Connection lost. Reconnecting...",
+    "reconnected": "Back online."
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "loading": "Loading...",
+    "errorOccurred": "An unexpected error occurred"
+  }
+}
