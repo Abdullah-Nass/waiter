@@ -1,10 +1,19 @@
 import createMiddleware from "next-intl/middleware";
+import { NextRequest, NextResponse } from "next/server";
 
-export default createMiddleware({
+const intlMiddleware = createMiddleware({
   locales: ["en", "ar"],
   defaultLocale: "en",
 });
 
+export default function middleware(request: NextRequest) {
+  if (request.nextUrl.pathname.startsWith("/api")) {
+    return NextResponse.next();
+  }
+
+  return intlMiddleware(request);
+}
+
 export const config = {
-  matcher: ["/", "/(ar|en)/:path*", "/((?!_next|_vercel|.*\\..*).*)"],
+  matcher: ["/", "/(ar|en)/:path*", "/((?!api|_next|_vercel|.*\\..*).*)"],
 };

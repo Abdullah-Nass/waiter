@@ -1,5 +1,5 @@
 import "dotenv/config";
-import bcrypt from "bcryptjs";
+import { auth } from "../src/lib/auth"; // Adjust to where your betterAuth server instance is exported
 import { db } from "../src/lib/prisma/db";
 
 async function main() {
@@ -34,27 +34,28 @@ async function main() {
       continue;
     }
 
-    const hashedPassword = await bcrypt.hash(u.password, 10);
-
-    await db.user.create({
-      data: {
+    // 1. Create user and credential account using Better Auth native API
+    await auth.api.signUpEmail({
+      body: {
         name: u.name,
         email: u.email,
-        emailVerified: true,
+        password: u.password,
+      },
+    });
+
+    // 2. Set the custom role and verify the email
+    await db.user.update({
+      where: { email: u.email },
+      data: {
         role: u.role,
-        accounts: {
-          create: {
-            accountId: u.email,
-            providerId: "credential",
-            password: hashedPassword,
-          },
-        },
+        emailVerified: true,
       },
     });
 
     console.log(`✔  ${u.role} created: ${u.email}`);
   }
 
+  // Categories & Menu Items Seeding
   const existingCategory = await db.category.findFirst();
 
   if (existingCategory) {
