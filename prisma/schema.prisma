@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  WAITER
+  KITCHEN
+  ADMIN
+}
+
+enum OrderStatus {
+  SENT
+  IN_PROGRESS
+  READY
+  SERVED
+  CANCELLED
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false)
+  image         String?
+  role          Role
+  createdAt     DateTime  @default(now())
+  sessions      Session[]
+  accounts      Account[]
+  orders        Order[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Account {
+  id                    String    @id @default(uuid())
+  userId                String
+  accountId             String
+  providerId            String
+  accessToken           String?
+  refreshToken          String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  idToken               String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Verification {
+  id         String   @id @default(uuid())
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+}
+
+model Category {
+  id        Int        @id @default(autoincrement())
+  nameAr    String
+  nameEn    String
+  sortOrder Int        @default(0)
+  items     MenuItem[]
+}
+
+model MenuItem {
+  id         Int         @id @default(autoincrement())
+  nameAr     String
+  nameEn     String
+  descAr     String?
+  descEn     String?
+  price      Float
+  image      String?
+  available  Boolean     @default(true)
+  category   Category    @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  orderItems OrderItem[]
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  status      OrderStatus
+  tableNumber Int
+  total       Float       @default(0.0)
+  waiter      User        @relation(fields: [waiterId], references: [id])
+  waiterId    String
+  items       OrderItem[]
+  createdAt   DateTime    @default(now())
+}
+
+model OrderItem {
+  id         Int      @id @default(autoincrement())
+  quantity   Int      @default(1)
+  price      Float
+  notes      String?
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+  menuItemId Int
+  order      Order    @relation(fields: [orderId], references: [id])
+  orderId    Int
+}
