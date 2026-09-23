@@ -6,6 +6,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import QueryProvider from "@/providers/query-provider";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +36,6 @@ export default async function RootLayout({
     notFound();
   }
   const messages = await getMessages();
-
   return (
     <html
       lang={locale}
@@ -44,7 +44,11 @@ export default async function RootLayout({
     >
       <body className="min-h-dvh flex flex-col">
         <NextIntlClientProvider messages={messages}>
-          <QueryProvider>{children}</QueryProvider>
+          <QueryProvider>
+            <Toaster position="top-right" />
+
+            {children}
+          </QueryProvider>
         </NextIntlClientProvider>
       </body>
     </html>

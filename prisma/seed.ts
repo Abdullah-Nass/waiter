@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { auth } from "../src/lib/auth"; // Adjust to where your betterAuth server instance is exported
+import { auth } from "../src/lib/auth";
 import { db } from "../src/lib/prisma/db";
 
 async function main() {
@@ -34,7 +34,6 @@ async function main() {
       continue;
     }
 
-    // 1. Create user and credential account using Better Auth native API
     await auth.api.signUpEmail({
       body: {
         name: u.name,
@@ -43,7 +42,6 @@ async function main() {
       },
     });
 
-    // 2. Set the custom role and verify the email
     await db.user.update({
       where: { email: u.email },
       data: {
@@ -55,7 +53,6 @@ async function main() {
     console.log(`✔  ${u.role} created: ${u.email}`);
   }
 
-  // Categories & Menu Items Seeding
   const existingCategory = await db.category.findFirst();
 
   if (existingCategory) {

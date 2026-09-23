@@ -14,8 +14,11 @@
     "tables": "Tables",
     "orders": "Orders",
     "kitchenQueue": "Kitchen Display",
-    "menu": "Menu Management",
-    "settings": "Settings"
+    "settings": "Settings",
+    "categories": "Categories",
+    "user": "User",
+    "orderSummary": "Order Summary",
+    "newCategory": "New category"
   },
   "tables": {
     "tableNumber": "Table {number}",
@@ -31,14 +34,18 @@
       "served": "Served",
       "cancelled": "Cancelled"
     },
-    "itemsCount": "{count, plural, =1 {1 item} other {# items}}",
+    "add": "Add to order",
+    "quantity": "Quantity",
     "notes": "Notes",
     "addNotesPlaceholder": "e.g., No onions, dressing on the side...",
     "fireOrder": "Send Order to Kitchen",
     "markServed": "Mark as Served",
     "total": "Total",
     "emptyCart": "No items added yet",
-    "confirmSend": "Send order for Table {tableNumber}?"
+    "confirmSend": "Send order for Table {tableNumber}?",
+    "inStock": "Ready to order",
+    "outOfStock": "Out of stock",
+    "availability": "Available"
   },
   "kitchen": {
     "activeOrders": "Active Kitchen Orders",
@@ -53,6 +60,39 @@
     },
     "noActiveOrders": "No pending orders in queue."
   },
+  "admin": {
+    "addCategory": {
+      "title": "Add a new category",
+      "subtitle": "Create a new category for your menu.",
+      "catEn": "Category name in English",
+      "catAr": "Category name in Arabic"
+    },
+    "addItem": {
+      "title": "Add a new item",
+      "subtitle": "Create a new item for your menu.",
+      "buttonLabel": "Add item",
+      "buttonSubtext": "Click to add",
+      "nameEn": "Item name in English",
+      "nameAr": "Item name in Arabic",
+      "category": "Category",
+      "selectCategory": "Select a category",
+      "price": "Price",
+      "descEn": "Description in English (optional)",
+      "descAr": "Description in Arabic (optional)"
+    },
+    "deleteCategory": {
+      "title": "Are you sure you want to delete \"{category}\"?",
+      "description": "This action cannot be undone. This will permanently delete the category and the items within."
+    },
+    "deleteItem": {
+      "title": "Are you sure you want to delete \"{item}\"?",
+      "description": "This action cannot be undone. This will permanently delete the item."
+    }
+  },
+  "elapsedTime": "{minutes}m ago",
+  "startPreparing": "Start Preparing",
+  "markReady": "Mark as Ready",
+
   "notifications": {
     "orderReadyTitle": "Order Ready!",
     "orderReadyBody": "Order for Table {tableNumber} is ready for pickup.",
@@ -62,10 +102,68 @@
   },
   "common": {
     "save": "Save",
+    "saving": "Saving...",
     "cancel": "Cancel",
     "confirm": "Confirm",
+    "delete": "Delete",
+    "confirming": "Confirming",
     "back": "Back",
     "loading": "Loading...",
     "errorOccurred": "An unexpected error occurred"
+  },
+  "meta": {
+    "menuButtonOpen": "Collapse categories",
+    "menuButtonClosed": "Expand categories",
+    "deleteCategoryButton": "Delete category",
+    "deleteItemButton": "Delete item"
+  },
+  "edit": {
+    "delete": "Delete item",
+    "name": {
+      "title": "Edit Menu Item Names",
+      "subtitle": "Update the English and Arabic titles for item #{id}.",
+      "labelEn": "English Name",
+      "labelAr": "Arabic Name"
+    },
+    "desc": {
+      "title": "Edit Menu Item Descriptions",
+      "subtitle": "Update the English and Arabic descriptions for item #{id}.",
+      "labelEn": "English Description",
+      "labelAr": "Arabic Description"
+    },
+    "price": {
+      "title": "Edit Menu Item Price",
+      "subtitle": "Update the price for item #{id}.",
+      "label": "Price"
+    },
+    "errors": {
+      "requiredFields": "All fields are required",
+      "name": {
+        "min": "Name must be at least 2 characters",
+        "max": "Name must not exceed 100 characters"
+      },
+      "desc": {
+        "min": "Description must be at least 2 characters",
+        "max": "Description must not exceed 500 characters"
+      },
+      "price": {
+        "error": "Price cannot be empty",
+        "invalid": "Please enter a valid price",
+        "positive": "Price must be greater than 0"
+      },
+      "category": {
+        "required": "Please select a category"
+      }
+    }
+  },
+  "toast": {
+    "categoryAdded": "Category created successfully",
+    "categoryAddedFaild": "Failed to create category",
+    "itemAdded": "Item created successfully",
+    "itemAddedFailed": "Failed to create item",
+    "deleteCategory": "Category deleted successfully!",
+    "deleteCategoryFaild": "Failed to delete category!",
+    "deleteItem": "Item deleted successfully!",
+    "deleteItemFaild": "Failed to delete item!"
   }
 }

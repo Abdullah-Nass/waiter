@@ -5,25 +5,31 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { cn } from "cn";
+import { useCartStore } from "@/providers/cart-provider";
+import { useCartHydrated } from "@/lib/stores/cart";
 
 interface NavbarProps {
-  pageTitle: string;
+  pageTitle?: string;
   userName?: string;
   userRole?: string;
-  activeOrdersCount?: number;
 }
 
 export default function NavbarClient({
   pageTitle = "Menu",
   userName = "User",
   userRole = "Waiter",
-  activeOrdersCount = 12,
 }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isHydrated = useCartHydrated();
+
   const t = useTranslations();
+
+  const totalItems = useCartStore((state) => state.totalItems());
+
+  const activeOrdersCount = isHydrated ? totalItems : 0;
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border shadow-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 border-b border-border shadow-xs h-[64px]">
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
           <div className="flex items-center gap-4 min-w-0">
             <h1 className="text-xl font-bold text-foreground truncate tracking-tight">

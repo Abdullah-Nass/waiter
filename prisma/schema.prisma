@@ -28,7 +28,7 @@ model User {
   image         String?
   role          Role      @default(WAITER)
   createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt // <-- ADD THIS
+  updatedAt     DateTime  @updatedAt 
 
   sessions      Session[]
   accounts      Account[]
@@ -78,7 +78,7 @@ model Verification {
   value      String
   expiresAt  DateTime
   createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt // <-- ADD THIS
+  updatedAt  DateTime @updatedAt 
 
   @@map("verification")
 }
@@ -100,7 +100,7 @@ model MenuItem {
   price      Float
   image      String?
   available  Boolean     @default(true)
-  category   Category    @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId Int
   orderItems OrderItem[]
 }
@@ -121,7 +121,7 @@ model OrderItem {
   quantity   Int      @default(1)
   price      Float
   notes      String?
-  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete:Cascade)
   menuItemId Int
   order      Order    @relation(fields: [orderId], references: [id])
   orderId    Int

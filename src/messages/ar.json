@@ -16,7 +16,10 @@
     "orders": "الطلبات",
     "kitchenQueue": "شاشة المطبخ",
     "menu": "إدارة القائمة",
-    "settings": "الإعدادات"
+    "settings": "الإعدادات",
+    "categories": "التصنيفات",
+    "user": "المستخدم",
+    "orderSummary": "Order Summary"
   },
   "tables": {
     "tableNumber": "طاولة {number}",
@@ -37,7 +40,8 @@
       "served": "تم التقديم",
       "cancelled": "ملغي"
     },
-    "itemsCount": "{count, plural, =1 {صنف واحد} =2 {صنفان} few {# أصناف} many {# صنفًا} other {# صنف}}",
+    "add": "اضافة الى الطلب",
+    "quantity": "العدد",
     "notes": "ملاحظات",
     "addNotesPlaceholder": "مثال: بدون بصل، الصوص جانبي...",
     "fireOrder": "إرسال الطلب إلى المطبخ",
