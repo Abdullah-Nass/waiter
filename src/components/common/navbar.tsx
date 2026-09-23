@@ -1,10 +1,6 @@
-import { auth } from "@/lib/auth";
 import NavbarClient from "./navbar-client";
-import { headers } from "next/headers";
+import { NavbarProps } from "@/types/types";
 
-export default async function Navbar() {
-  const session = await auth.api.getSession({ headers: await headers() });
-  return (
-    <NavbarClient userName={session?.user.name} userRole={session?.user.role} />
-  );
+export default async function Navbar({ userName, userRole }: NavbarProps) {
+  return <NavbarClient userName={userName} userRole={userRole} />;
 }

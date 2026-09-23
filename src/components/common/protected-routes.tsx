@@ -22,7 +22,7 @@ export default async function ProtectedRoutes({
   }
   return (
     <CartProvider waiterId={session.user.id}>
-      <Navbar />
+      <Navbar userName={session.user.name} userRole={session.user.role} />
       <div {...props} />
     </CartProvider>
   );

@@ -31,7 +31,7 @@ export default function DeleteItemModal({ item }: { item: MenuItem }) {
           size="icon"
           onClick={(e) => e.stopPropagation()} // Prevents card selection
           className={cn("absolute top-4 end-4 h-6 w-6 hover:text-gray-600")}
-          aria-label={t("meta.deleteItemButton")}
+          aria-label={t("metadata.deleteItemButton")}
           asChild
         >
           <X />

@@ -111,11 +111,15 @@
     "loading": "Loading...",
     "errorOccurred": "An unexpected error occurred"
   },
-  "meta": {
+  "metadata": {
     "menuButtonOpen": "Collapse categories",
     "menuButtonClosed": "Expand categories",
     "deleteCategoryButton": "Delete category",
-    "deleteItemButton": "Delete item"
+    "deleteItemButton": "Delete item",
+    "menu": {
+      "title": "Menu",
+      "description": "Browse our menu and place your order"
+    }
   },
   "edit": {
     "delete": "Delete item",

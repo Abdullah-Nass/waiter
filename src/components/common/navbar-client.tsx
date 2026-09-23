@@ -7,20 +7,13 @@ import { Button } from "../ui/button";
 import { cn } from "cn";
 import { useCartStore } from "@/providers/cart-provider";
 import { useCartHydrated } from "@/lib/stores/cart";
+import { usePageTitle } from "../hooks/use-page-title";
+import { NavbarProps } from "@/types/types";
 
-interface NavbarProps {
-  pageTitle?: string;
-  userName?: string;
-  userRole?: string;
-}
-
-export default function NavbarClient({
-  pageTitle = "Menu",
-  userName = "User",
-  userRole = "Waiter",
-}: NavbarProps) {
+export default function NavbarClient({ userName, userRole }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isHydrated = useCartHydrated();
+  const title = usePageTitle();
 
   const t = useTranslations();
 
@@ -33,7 +26,7 @@ export default function NavbarClient({
         <div className="flex items-center justify-between h-16 gap-4">
           <div className="flex items-center gap-4 min-w-0">
             <h1 className="text-xl font-bold text-foreground truncate tracking-tight">
-              {pageTitle}
+              {title}
             </h1>
 
             <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-secondary text-secondary-foreground border border-border rounded-full font-medium text-sm">

@@ -40,7 +40,7 @@ export default function CategoryList({
         size={"icon"}
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label={
-          isOpen ? t("meta.menuButtonOpen") : t("meta.menuButtonClosed")
+          isOpen ? t("metadata.menuButtonOpen") : t("metadata.menuButtonClosed")
         }
         className={cn(
           "absolute top-6 z-40 flex h-9 w-9 items-center justify-center",

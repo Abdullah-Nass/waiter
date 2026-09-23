@@ -2,11 +2,27 @@ import ProtectedRoutes from "@/components/common/protected-routes";
 import MenuContainer from "@/components/menu/menu-container";
 import { redirect } from "@/i18n/routing";
 import { db } from "@/lib/prisma/db";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
 type MenuPageProps = {
   params: Promise<{ locale: string }>;
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "metadata" });
+
+  return {
+    title: t("menu.title"),
+    description: t("menu.description"),
+  };
+}
 
 export default async function MenuPage({
   params,
