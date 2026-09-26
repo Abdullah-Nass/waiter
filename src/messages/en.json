@@ -140,6 +140,10 @@
       "title": "Menu",
       "description": "Browse our menu and place your order"
     },
+    "checkout": {
+      "title": "Checkout",
+      "description": "Place your selected order"
+    },
     "checkoutBtn": "Checkout order",
     "menuBtn": "Browse menu",
     "kitchenBtn": "View kitchen"

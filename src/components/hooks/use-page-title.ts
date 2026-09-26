@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 
 const pathnameToKey: Record<string, string> = {
   "/menu": "metadata.menu.title",
+  "/checkout": "metadata.checkout.title",
 };
 
 export function usePageTitle() {
