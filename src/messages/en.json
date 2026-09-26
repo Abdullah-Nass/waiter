@@ -136,6 +136,7 @@
     "menuBtnClosed": "Expand categories",
     "deleteCategoryBtn": "Delete category",
     "deleteItemBtn": "Delete item",
+    "langaugeBtn": "Switch language to {label}",
     "menu": {
       "title": "Menu",
       "description": "Browse our menu and place your order"

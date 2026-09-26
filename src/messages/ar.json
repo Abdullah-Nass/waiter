@@ -1,75 +1,198 @@
 {
   "auth": {
     "loginTitle": "تسجيل دخول الموظفين",
-    "enterPin": "أدخل رمز PIN",
+    "enterPin": "أدخل رمز PIN الخاص بك",
     "invalidPin": "رمز PIN غير صحيح. يرجى المحاولة مرة أخرى.",
-    "selectRole": "اختر الدور",
+    "selectRole": "تحديد الدور",
     "logout": "تسجيل الخروج",
     "roles": {
       "WAITER": "نادل",
-      "KITCHEN": "طاقم المطبخ",
-      "ADMIN": "المدير"
+      "KITCHEN": "طاقم المطبخ"
     }
   },
   "navigation": {
     "tables": "الطاولات",
     "orders": "الطلبات",
     "kitchenQueue": "شاشة المطبخ",
-    "menu": "إدارة القائمة",
     "settings": "الإعدادات",
     "categories": "التصنيفات",
     "user": "المستخدم",
-    "orderSummary": "Order Summary"
+    "orderSummary": "ملخص الطلب",
+    "menu": "قائمة الطعام",
+    "newCategory": "تصنيف جديد"
   },
   "tables": {
     "tableNumber": "طاولة {number}",
-    "status": {
-      "available": "متاحة",
-      "occupied": "مشغولة",
-      "reserved": "محجوزة"
-    },
     "openOrder": "طلب جديد",
     "viewActiveOrder": "عرض الطلب"
   },
   "orders": {
     "ticketNumber": "طلب #{id}",
     "status": {
-      "sent": "أُرسل للمطبخ",
+      "sent": "أُرسل إلى المطبخ",
       "in_progress": "قيد التحضير",
-      "ready": "جاهز للتقديم",
+      "ready": "جاهز للاستلام",
       "served": "تم التقديم",
-      "cancelled": "ملغي"
+      "cancelled": "ملغى"
     },
-    "add": "اضافة الى الطلب",
-    "quantity": "العدد",
+    "add": "إضافة إلى الطلب",
+    "quantity": "الكمية",
     "notes": "ملاحظات",
-    "addNotesPlaceholder": "مثال: بدون بصل، الصوص جانبي...",
+    "addNotesPlaceholder": "مثال: بدون بصل، الصلصة جانباً...",
     "fireOrder": "إرسال الطلب إلى المطبخ",
     "markServed": "تحديد كـ تم التقديم",
     "total": "الإجمالي",
-    "emptyCart": "لم تتم إضافة أي أصناف بعد",
-    "confirmSend": "هل تريد إرسال الطلب لطاولة {tableNumber}؟"
+    "emptyCart": "لم تتم إضافة أي عناصر بعد",
+    "confirmSend": "إرسال الطلب لطاولة {tableNumber}؟",
+    "inStock": "جاهز للطلب",
+    "outOfStock": "نفد من المخزون",
+    "availability": "متوفر"
   },
   "kitchen": {
     "activeOrders": "طلبات المطبخ الحالية",
-    "elapsedTime": "منذ {minutes} دقيقة",
+    "elapsedTime": "منذ {minutes} د",
     "startPreparing": "بدء التحضير",
     "markReady": "تحديد كـ جاهز",
-    "noActiveOrders": "لا توجد طلبات معلقة حاليًا."
+    "stationFilter": {
+      "all": "جميع الأقسام",
+      "kitchen": "المطبخ الرئيسي",
+      "bar": "المشروبات (البار)",
+      "grill": "الشواية"
+    },
+    "noActiveOrders": "لا توجد طلبات معلقة في قائمة الانتظار."
   },
+  "admin": {
+    "addCategory": {
+      "title": "إضافة تصنيف جديد",
+      "subtitle": "إنشاء تصنيف جديد لقائمة الطعام الخاصة بك.",
+      "catEn": "اسم التصنيف بالإنجليزية",
+      "catAr": "اسم التصنيف بالعربية"
+    },
+    "addItem": {
+      "title": "إضافة صنف جديد",
+      "subtitle": "إنشاء صنف جديد لقائمة الطعام الخاصة بك.",
+      "btnLabel": "إضافة صنف",
+      "btnSubtext": "اضغط للإضافة",
+      "nameEn": "اسم الصنف بالإنجليزية",
+      "nameAr": "اسم الصنف بالعربية",
+      "category": "التصنيف",
+      "selectCategory": "اختر تصنيفاً",
+      "price": "السعر",
+      "descEn": "الوصف بالإنجليزية (اختياري)",
+      "descAr": "الوصف بالعربية (اختياري)"
+    },
+    "deleteCategory": {
+      "title": "هل أنت متأكد من حذف \"{category}\"؟",
+      "description": "لا يمكن التراجع عن هذا الإجراء. سيؤدي ذلك إلى حذف التصنيف والأصناف التابعة له نهائياً."
+    },
+    "deleteItem": {
+      "title": "هل أنت متأكد من حذف \"{item}\"؟",
+      "description": "لا يمكن التراجع عن هذا الإجراء. سيؤدي ذلك إلى حذف هذا الصنف نهائياً."
+    }
+  },
+  "cart": {
+    "empty": "سلة الطلبات فارغة",
+    "ctaAdd": "أضف أصنافاً للبدء.",
+    "each": "{price} للقطعة",
+    "delete": {
+      "title": "هل أنت متأكد من حذف هذا الصنف؟",
+      "description": "لا يمكن التراجع عن هذا الإجراء. سيؤدي ذلك إلى إزالة الصنف نهائياً من السلة."
+    },
+    "errors": {
+      "tableNumber": "رقم الطاولة مطلوب"
+    },
+    "tableInputLabel": "رقم الطاولة",
+    "checkout": {
+      "title": "إتمام الطلب",
+      "total": "الإجمالي",
+      "place": "تأكيد الطلب",
+      "placing": "جارٍ إرسال الطلب..."
+    }
+  },
+  "elapsedTime": "منذ {minutes} د",
+  "startPreparing": "بدء التحضير",
+  "markReady": "تحديد كـ جاهز",
+
   "notifications": {
     "orderReadyTitle": "الطلب جاهز!",
-    "orderReadyBody": "طلب طاولة {tableNumber} جاهز للتقديم الآن.",
+    "orderReadyBody": "طلب طاولة {tableNumber} جاهز للاستلام.",
     "newOrderAlert": "تم استلام طلب جديد لطاولة {tableNumber}",
-    "connectionLost": "انقطع الاتصال. جارٍ إعادة المحاولة...",
-    "reconnected": "تمت استعادة الاتصال."
+    "connectionLost": "انقطع الاتصال. جارٍ إعادة الاتصال...",
+    "reconnected": "تمت إعادة الاتصال بنجاح."
   },
   "common": {
     "save": "حفظ",
+    "saving": "جارٍ الحفظ...",
     "cancel": "إلغاء",
     "confirm": "تأكيد",
+    "delete": "حذف",
+    "confirming": "جارٍ التأكيد...",
     "back": "رجوع",
     "loading": "جارٍ التحميل...",
     "errorOccurred": "حدث خطأ غير متوقع"
+  },
+  "metadata": {
+    "menuBtnOpen": "طي التصنيفات",
+    "menuBtnClosed": "توسيع التصنيفات",
+    "deleteCategoryBtn": "حذف التصنيف",
+    "deleteItemBtn": "حذف الصنف",
+    "menu": {
+      "title": "قائمة الطعام",
+      "description": "تصفح قائمتنا وقدم طلبك"
+    },
+    "checkout": {
+      "title": "إتمام الطلب",
+      "description": "إرسال طلبك المحدد"
+    },
+    "checkoutBtn": "إتمام الطلب",
+    "menuBtn": "تصفح القائمة",
+    "kitchenBtn": "عرض المطبخ"
+  },
+  "edit": {
+    "delete": "حذف الصنف",
+    "name": {
+      "title": "تعديل أسماء الأصناف",
+      "subtitle": "تحديث الأسماء بالإنجليزية والعربية للصنف رقم #{id}.",
+      "labelEn": "الاسم بالإنجليزية",
+      "labelAr": "الاسم بالعربية"
+    },
+    "desc": {
+      "title": "تعديل أوصاف الأصناف",
+      "subtitle": "تحديث الأوصاف بالإنجليزية والعربية للصنف رقم #{id}.",
+      "labelEn": "الوصف بالإنجليزية",
+      "labelAr": "الوصف بالعربية"
+    },
+    "price": {
+      "title": "تعديل سعر الصنف",
+      "subtitle": "تحديث السعر للصنف رقم #{id}.",
+      "label": "السعر"
+    },
+    "errors": {
+      "requiredFields": "جميع الحقول مطلوبة",
+      "name": {
+        "min": "يجب ألا يقل الاسم عن حرفين",
+        "max": "يجب ألا يتجاوز الاسم 100 حرف"
+      },
+      "desc": {
+        "min": "يجب ألا يقل الوصف عن حرفين",
+        "max": "يجب ألا يتجاوز الوصف 500 حرف"
+      },
+      "price": {
+        "error": "يجب إدخال قيمة رقمية"
+      },
+      "category": {
+        "required": "يرجى اختيار تصنيف"
+      }
+    }
+  },
+  "toast": {
+    "categoryAdded": "تم إنشاء التصنيف بنجاح",
+    "categoryAddedFaild": "فشل إنشاء التصنيف",
+    "itemAdded": "تمت إضافة الصنف بنجاح",
+    "itemAddedFailed": "فشلت إضافة الصنف",
+    "deleteCategory": "تم حذف التصنيف بنجاح!",
+    "deleteCategoryFaild": "فشل حذف التصنيف!",
+    "deleteItem": "تم حذف الصنف بنجاح!",
+    "deleteItemFaild": "فشل حذف الصنف!"
   }
 }

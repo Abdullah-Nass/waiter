@@ -1,4 +1,5 @@
 "use client";
+
 import { Link } from "@/i18n/routing";
 import { ChefHat, ShoppingCart, User, UtensilsCrossed } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -9,6 +10,7 @@ import { useCartStore } from "@/providers/cart-provider";
 import { useCartHydrated } from "@/lib/stores/cart";
 import { usePageTitle } from "../hooks/use-page-title";
 import { NavbarProps } from "@/types/types";
+import LanguageSwitcher from "./language-switcher";
 
 export default function NavbarClient({ userName, userRole }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -86,6 +88,7 @@ export default function NavbarClient({ userName, userRole }: NavbarProps) {
                 </Link>
               </Button>
             )}
+            <LanguageSwitcher />
           </div>
 
           {/* Mobile Menu Toggle Button */}
