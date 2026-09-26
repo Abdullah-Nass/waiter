@@ -5,6 +5,7 @@ import { useRouter } from "@/i18n/routing";
 import { usePathname } from "next/navigation";
 import { useTransition } from "react";
 import { Button } from "../ui/button";
+import { Globe } from "lucide-react";
 
 export default function LanguageSwitcher() {
   const [isPending, startTransition] = useTransition();
@@ -32,7 +33,7 @@ export default function LanguageSwitcher() {
       disabled={isPending}
       aria-label={t("metadata.langaugeBtn", { label })}
     >
-      {label}
+      <Globe className="size-4" /> <span>{label}</span>
     </Button>
   );
 }
