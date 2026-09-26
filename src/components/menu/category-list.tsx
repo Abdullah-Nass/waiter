@@ -23,7 +23,7 @@ export default function CategoryList({
   onSelect,
 }: categoryListProps) {
   const t = useTranslations();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const locale = useLocale();
   const isRtl = locale === "ar";
   return (
@@ -40,7 +40,7 @@ export default function CategoryList({
         size={"icon"}
         onClick={() => setIsOpen((prev) => !prev)}
         aria-label={
-          isOpen ? t("metadata.menuButtonOpen") : t("metadata.menuButtonClosed")
+          isOpen ? t("metadata.menuBtnOpen") : t("metadata.menuBtnClosed")
         }
         className={cn(
           "absolute top-6 z-40 flex h-9 w-9 items-center justify-center",

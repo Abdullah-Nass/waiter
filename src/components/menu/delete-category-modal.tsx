@@ -35,7 +35,7 @@ export default function DeleteCategoryModal({
           size="icon"
           onClick={(e) => e.stopPropagation()}
           className="h-6 w-6 hover:bg-background/20"
-          aria-label={t("metadata.deleteCategoryButton")}
+          aria-label={t("metadata.deleteCategoryBtn")}
           asChild
         >
           <X />

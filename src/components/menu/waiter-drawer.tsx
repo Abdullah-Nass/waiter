@@ -1,4 +1,3 @@
-import { Minus, Plus } from "lucide-react";
 import { Button } from "../ui/button";
 import {
   DrawerClose,
@@ -11,6 +10,8 @@ import { useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { useCartStore } from "@/providers/cart-provider";
 import { MenuItem } from "@prisma/client";
+import QuantityControl from "../common/quantity-control";
+import { ShoppingCart } from "lucide-react";
 type waiterDrawerProps = {
   item: MenuItem | null;
   onOpenChange: (open: boolean) => void;
@@ -22,9 +23,9 @@ export default function WaiterDrawer({
 }: waiterDrawerProps) {
   const t = useTranslations();
   const locale = useLocale();
-  const [quantity, setQuantity] = useState(1);
   const [notes, setNotes] = useState("");
   const [error, setError] = useState("");
+  const [quantity, setQuantity] = useState(1);
   const handleIncrement = () => setQuantity((prev) => prev + 1);
   const handleDecrement = () =>
     setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
@@ -58,38 +59,21 @@ export default function WaiterDrawer({
         <DrawerTitle className="text-xl font-bold">{itemName}</DrawerTitle>
         <DrawerDescription>{itemDesc}</DrawerDescription>
       </DrawerHeader>
-      <p className="pt-2 text-lg font-semibold text-primary text-center">
-        ${item.price.toFixed(2)}
-      </p>
+      <div className="flex flex-col pt-2 text-center">
+        <span className="text-lg font-semibold text-primary">
+          ${item.price.toFixed(2)}
+        </span>
+        <span className="text-sm text-foreground/50">
+          {t("orders.total")}: ${totalPrice.toFixed(2)}
+        </span>
+      </div>
       <div className="space-y-5 p-4 pb-0">
         {/* Quantity */}
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-medium">{t("orders.quantity")}</span>
-          <div className="flex items-center gap-3">
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-8 w-8 rounded-full"
-              onClick={handleDecrement}
-              disabled={quantity <= 1}
-              type="button"
-            >
-              <Minus className="h-4 w-4" />
-            </Button>
-            <span className="w-6 text-center text-base font-semibold">
-              {quantity}
-            </span>
-            <Button
-              variant="outline"
-              size="icon"
-              className="h-8 w-8 rounded-full"
-              onClick={handleIncrement}
-              type="button"
-            >
-              <Plus className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
+        <QuantityControl
+          handleDecrement={handleDecrement}
+          handleIncrement={handleIncrement}
+          quantity={quantity}
+        />
         {error && (
           <div className="rounded-md bg-destructive/15 p-3 text-sm font-medium text-destructive">
             {t(error)}
@@ -111,8 +95,11 @@ export default function WaiterDrawer({
         </div>
       </div>
       <DrawerFooter className="pt-6">
-        <Button onClick={() => handleAddItem(item)} className="w-full">
-          {t("orders.add")} • ${totalPrice.toFixed(2)}
+        <Button
+          onClick={() => handleAddItem(item)}
+          className="w-full flex items-center"
+        >
+          <ShoppingCart className="size-4" /> <span>{t("orders.add")}</span>
         </Button>
         <DrawerClose asChild>
           <Button onClick={resetValues} variant="outline" className="w-full">

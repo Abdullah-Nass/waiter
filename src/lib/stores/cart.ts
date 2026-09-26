@@ -1,16 +1,7 @@
-// lib/stores/cart.ts
+import { CartItem } from "@/types/types";
 import { useSyncExternalStore } from "react";
 import { createStore } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
-
-export type CartItem = {
-  id: number;
-  nameAr: string;
-  nameEn: string;
-  price: number;
-  quantity: number;
-  notes?: string;
-};
 
 export type CartState = {
   items: CartItem[];

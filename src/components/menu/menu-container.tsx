@@ -9,6 +9,8 @@ import { authClient } from "@/lib/auth-client";
 import { getSocket } from "@/lib/socket/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchMenu } from "@/lib/api/menu";
+import LoadingComponent from "../common/loading-component";
+import CartFloat from "./cart-float";
 
 type CategoryWithItems = Category & { items: MenuItem[] };
 
@@ -61,20 +63,21 @@ export default function MenuContainer({
     };
   }, [session?.user.role, queryClient]);
 
-  if (isPending || dataIsPending) return <div>lodaing</div>;
+  if (isPending || dataIsPending) return <LoadingComponent />;
 
   return (
-    <div className="flex">
+    <div className="flex relative">
       <CategoryList
         categories={categories}
         selectedId={selectedId}
-        role={session?.user.role}
+        role={session!.user.role}
         onSelect={(id) => {
           setSelectedId(id);
           window.history.replaceState(null, "", `?category=${id}`);
         }}
       />
       <MenuList items={activeCategory?.items} categories={categories} />
+      {session!.user.role === "WAITER" && <CartFloat />}
     </div>
   );
 }

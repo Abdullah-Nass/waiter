@@ -90,9 +90,10 @@ export function EditPriceModal({
         <Input
           id="price"
           type="number"
-          step="0.1"
-          min="0.1"
+          inputMode="decimal"
+          step="0.01"
           disabled={isPending}
+          className="[appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
           {...register("price", { valueAsNumber: true })}
         />
         {errors.price && (

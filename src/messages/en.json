@@ -18,6 +18,7 @@
     "categories": "Categories",
     "user": "User",
     "orderSummary": "Order Summary",
+    "menu": "Menu",
     "newCategory": "New category"
   },
   "tables": {
@@ -70,8 +71,8 @@
     "addItem": {
       "title": "Add a new item",
       "subtitle": "Create a new item for your menu.",
-      "buttonLabel": "Add item",
-      "buttonSubtext": "Click to add",
+      "btnLabel": "Add item",
+      "btnSubtext": "Click to add",
       "nameEn": "Item name in English",
       "nameAr": "Item name in Arabic",
       "category": "Category",
@@ -87,6 +88,25 @@
     "deleteItem": {
       "title": "Are you sure you want to delete \"{item}\"?",
       "description": "This action cannot be undone. This will permanently delete the item."
+    }
+  },
+  "cart": {
+    "empty": "Your cart is empty",
+    "ctaAdd": "Add items to get started.",
+    "each": "${price} each",
+    "delete": {
+      "title": "Are you sure you want to delete the item?",
+      "description": "This action cannot be undone. This will permanently the item from the cart"
+    },
+    "errors": {
+      "tableNumber": "A number is required"
+    },
+    "tableInputLabel": "Table Number",
+    "checkout": {
+      "title": "Checkout",
+      "total": "Total",
+      "place": "Place Order",
+      "placing": "Placing Order"
     }
   },
   "elapsedTime": "{minutes}m ago",
@@ -112,14 +132,17 @@
     "errorOccurred": "An unexpected error occurred"
   },
   "metadata": {
-    "menuButtonOpen": "Collapse categories",
-    "menuButtonClosed": "Expand categories",
-    "deleteCategoryButton": "Delete category",
-    "deleteItemButton": "Delete item",
+    "menuBtnOpen": "Collapse categories",
+    "menuBtnClosed": "Expand categories",
+    "deleteCategoryBtn": "Delete category",
+    "deleteItemBtn": "Delete item",
     "menu": {
       "title": "Menu",
       "description": "Browse our menu and place your order"
-    }
+    },
+    "checkoutBtn": "Checkout order",
+    "menuBtn": "Browse menu",
+    "kitchenBtn": "View kitchen"
   },
   "edit": {
     "delete": "Delete item",
@@ -129,6 +152,7 @@
       "labelEn": "English Name",
       "labelAr": "Arabic Name"
     },
+
     "desc": {
       "title": "Edit Menu Item Descriptions",
       "subtitle": "Update the English and Arabic descriptions for item #{id}.",
@@ -151,9 +175,7 @@
         "max": "Description must not exceed 500 characters"
       },
       "price": {
-        "error": "Price cannot be empty",
-        "invalid": "Please enter a valid price",
-        "positive": "Price must be greater than 0"
+        "error": "A number is required"
       },
       "category": {
         "required": "Please select a category"

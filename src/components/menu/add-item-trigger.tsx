@@ -15,10 +15,10 @@ export default function AddItemTrigger() {
         </div>
         <div className="flex flex-col">
           <span className="text-sm font-medium text-foreground transition-colors group-hover:text-primary">
-            {t("admin.addItem.buttonLabel")}
+            {t("admin.addItem.btnLabel")}
           </span>
           <span className="text-xs text-muted-foreground">
-            {t("admin.addItem.buttonSubtext")}
+            {t("admin.addItem.btnSubtext")}
           </span>
         </div>
       </button>

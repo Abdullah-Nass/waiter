@@ -1,6 +1,6 @@
 "use client";
 import { Link } from "@/i18n/routing";
-import { ChefHat, ShoppingCart, User } from "lucide-react";
+import { ChefHat, ShoppingCart, User, UtensilsCrossed } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "../ui/button";
@@ -44,6 +44,20 @@ export default function NavbarClient({ userName, userRole }: NavbarProps) {
               type="button"
               size={"lg"}
               className="flex items-center gap-2.5"
+              aria-label={t("metadata.menuBtn")}
+              asChild
+            >
+              <Link href={{ pathname: "/menu" }}>
+                <UtensilsCrossed size={20} strokeWidth={1.4} />
+                <span>{t("navigation.menu")}</span>
+              </Link>
+            </Button>
+            <Button
+              variant={"outline"}
+              type="button"
+              size={"lg"}
+              className="flex items-center gap-2.5"
+              aria-label={t("metadata.kitchenBtn")}
               asChild
             >
               <Link href={{ pathname: "/kitchen" }}>
@@ -51,12 +65,14 @@ export default function NavbarClient({ userName, userRole }: NavbarProps) {
                 <span>{t("navigation.kitchenQueue")}</span>
               </Link>
             </Button>
+
             {userRole === "WAITER" && (
               <Button
                 variant={"outline"}
                 type="button"
                 size={"lg"}
                 className="flex items-center gap-2.5"
+                aria-label={t("metadata.checkoutBtn")}
                 asChild
               >
                 <Link href={{ pathname: "/checkout" }}>
@@ -112,6 +128,20 @@ export default function NavbarClient({ userName, userRole }: NavbarProps) {
 
             <span className="font-semibold">{userName}</span>
           </div>
+          <Button
+            variant={"outline"}
+            size={"lg"}
+            className="w-full justify-start p-2.5"
+            asChild
+          >
+            <Link
+              href={{ pathname: "/menu" }}
+              className="flex items-center gap-2"
+            >
+              <UtensilsCrossed size={20} strokeWidth={1.4} />
+              <span>{t("navigation.menu")}</span>
+            </Link>
+          </Button>
           <Button
             variant={"outline"}
             size={"lg"}
