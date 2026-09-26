@@ -27,6 +27,7 @@ export async function placeOrder(input: PlaceOrderInput) {
             quantity: item.quantity,
             price: item.price,
             menuItemId: item.id,
+            notes: item.notes,
           })),
         },
       },
