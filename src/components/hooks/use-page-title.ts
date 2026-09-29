@@ -6,13 +6,13 @@ import { useTranslations } from "next-intl";
 const pathnameToKey: Record<string, string> = {
   "/menu": "metadata.menu.title",
   "/checkout": "metadata.checkout.title",
+  "/kitchen": "metadata.kitchen.title",
 };
 
 export function usePageTitle() {
   const pathname = usePathname();
   const t = useTranslations();
 
-  // strip locale prefix (/en/menu → /menu)
   const stripped = "/" + pathname.split("/").slice(2).join("/");
   const key = pathnameToKey[stripped];
 

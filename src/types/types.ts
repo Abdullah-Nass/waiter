@@ -1,3 +1,5 @@
+import { Prisma } from "@prisma/client";
+
 export interface NavbarProps {
   userName: string;
   userRole: string;
@@ -11,3 +13,13 @@ export interface CartItem {
   quantity: number;
   notes?: string;
 }
+
+export type OrderWithMenuItems = Prisma.OrderGetPayload<{
+  include: {
+    items: {
+      include: {
+        menuItem: true;
+      };
+    };
+  };
+}>;

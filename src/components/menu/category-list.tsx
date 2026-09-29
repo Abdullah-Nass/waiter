@@ -27,8 +27,6 @@ export default function CategoryList({
   const locale = useLocale();
   const isRtl = locale === "ar";
 
-  console.log(locale, "from category list");
-
   return (
     <aside
       className={cn(

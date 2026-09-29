@@ -22,12 +22,11 @@ export default function MenuContainer({
   const searchParams = useSearchParams();
 
   const queryClient = useQueryClient();
-  const { data: categories = initialCategories, isPending: dataIsPending } =
-    useQuery({
-      queryKey: ["menu"],
-      queryFn: fetchMenu,
-      initialData: initialCategories,
-    });
+  const { data: categories = initialCategories } = useQuery({
+    queryKey: ["menu"],
+    queryFn: fetchMenu,
+    initialData: initialCategories,
+  });
 
   const { data: session, isPending } = authClient.useSession();
 
@@ -47,7 +46,7 @@ export default function MenuContainer({
     socket.on(
       "menu:item-availability",
       ({ id, available }: { id: number; available: boolean }) => {
-        queryClient.setQueryData(["categories"], (prev: CategoryWithItems[]) =>
+        queryClient.setQueryData(["menu"], (prev: CategoryWithItems[]) =>
           prev.map((cat) => ({
             ...cat,
             items: cat.items.map((item) =>
@@ -63,7 +62,7 @@ export default function MenuContainer({
     };
   }, [session?.user.role, queryClient]);
 
-  if (isPending || dataIsPending) return <LoadingComponent />;
+  if (isPending) return <LoadingComponent />;
 
   return (
     <div className="flex relative">

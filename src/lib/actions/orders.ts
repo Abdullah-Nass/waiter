@@ -2,12 +2,13 @@
 
 import { CartItem } from "@/types/types";
 import { db } from "../prisma/db";
+import { getIO } from "../socket/server";
 
-export interface PlaceOrderInput {
+type PlaceOrderInput = {
   tableNumber: number;
   waiterId: string;
   items: CartItem[];
-}
+};
 
 export async function placeOrder(input: PlaceOrderInput) {
   try {
@@ -31,16 +32,19 @@ export async function placeOrder(input: PlaceOrderInput) {
           })),
         },
       },
-      include: {
-        items: true,
-      },
+      include: { items: true },
     });
+
+    // Notify kitchen
+    try {
+      const io = getIO();
+      io.to("kitchen").emit("order:new", order);
+    } catch (e) {
+      console.error("Socket emit failed:", e);
+    }
 
     return { success: true, data: order };
   } catch {
-    return {
-      success: false,
-      error: "common.errorOccurred",
-    };
+    return { success: false, error: "common.errorOccurred" };
   }
 }

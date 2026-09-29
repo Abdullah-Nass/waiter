@@ -22,16 +22,17 @@ app.prepare().then(() => {
   });
 
   io.on("connection", (socket) => {
-    const role = (socket.handshake.query.role as string) || "GUEST";
+    const role = socket.handshake.query.role as string;
+    const userId = socket.handshake.query.userId as string;
 
     if (role === "KITCHEN" || role === "ADMIN") {
       socket.join("kitchen");
     }
 
-    if (role === "WAITER") {
-      socket.join("waiters");
+    // Each waiter joins their own room
+    if (userId) {
+      socket.join(`waiter:${userId}`);
     }
-
     socket.on("disconnect", () => {
       // Clean disconnect
     });

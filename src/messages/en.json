@@ -49,17 +49,23 @@
     "availability": "Available"
   },
   "kitchen": {
-    "activeOrders": "Active Kitchen Orders",
-    "elapsedTime": "{minutes}m ago",
-    "startPreparing": "Start Preparing",
-    "markReady": "Mark as Ready",
-    "stationFilter": {
-      "all": "All Stations",
-      "kitchen": "Main Kitchen",
-      "bar": "Bar",
-      "grill": "Grill"
+    "newOrders": "New Orders",
+    "inProgressOrders": "In Progress Orders",
+    "readyOrders": "Ready Orders",
+    "table": "Table",
+    "statusBtn": {
+      "IN_PROGRESS": "Start Preparing",
+      "READY": "Mark as Ready"
     },
-    "noActiveOrders": "No pending orders in queue."
+    "status": {
+      "IN_PROGRESS": "being perpared",
+      "READY": "Ready"
+    },
+    "noOrders": "No orders",
+    "note": "Note",
+    "errors": {
+      "loadOrders": "Failed to load orders!"
+    }
   },
   "admin": {
     "addCategory": {
@@ -117,8 +123,7 @@
     "orderReadyTitle": "Order Ready!",
     "orderReadyBody": "Order for Table {tableNumber} is ready for pickup.",
     "newOrderAlert": "New order received for Table {tableNumber}",
-    "connectionLost": "Connection lost. Reconnecting...",
-    "reconnected": "Back online."
+    "statusChanged": "Table {tableNumber} order is now {status}"
   },
   "common": {
     "save": "Save",
@@ -144,6 +149,10 @@
     "checkout": {
       "title": "Checkout",
       "description": "Place your selected order"
+    },
+    "kitchen": {
+      "title": "Kitchen",
+      "description": "View kitchen orders"
     },
     "checkoutBtn": "Checkout order",
     "menuBtn": "Browse menu",
