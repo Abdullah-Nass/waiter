@@ -3,32 +3,39 @@
 import { OrderWithMenuItems } from "@/types/types";
 import { cn } from "cn";
 import { useTranslations } from "next-intl";
-import Order from "./order";
 import { Check } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
-import { OrderSkeleton } from "./order-skeleton";
+import { OrderSkeleton } from "../kitchen/order-skeleton";
+import Order from "../kitchen/order";
 
 export const colorsScheme = {
   blue: {
     bg: "bg-blue-500",
     bgSoft: "bg-blue-500/10",
-    text: "text-blue-600 dark:text-blue-400",
+    text: "text-blue-600",
     border: "border-blue-500/20",
     bgHover: "hover:bg-blue-600",
   },
   yellow: {
     bg: "bg-yellow-500",
     bgSoft: "bg-yellow-500/10",
-    text: "text-yellow-600 dark:text-yellow-400",
+    text: "text-yellow-600",
     border: "border-yellow-500/20",
     bgHover: "hover:bg-yellow-600",
   },
   green: {
     bg: "bg-green-500",
     bgSoft: "bg-green-500/10",
-    text: "text-green-600 dark:text-green-400",
+    text: "text-green-600=",
     border: "border-green-500/20",
     bgHover: "hover:bg-green-600",
+  },
+  red: {
+    bg: "bg-red-500",
+    bgSoft: "bg-red-500/10",
+    text: "text-red-600",
+    border: "border-red-500/20",
+    bgHover: "hover:bg-red-600",
   },
 };
 
@@ -37,7 +44,7 @@ type columnProps = {
   orders: OrderWithMenuItems[];
   title: string;
 };
-export default function KitchenColumn({ color, orders, title }: columnProps) {
+export default function OrdersColumn({ color, orders, title }: columnProps) {
   const scheme = colorsScheme[color];
   const t = useTranslations("kitchen");
 

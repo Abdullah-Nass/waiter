@@ -1,24 +1,39 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import KitchenColumn from "./kitchen-column";
+import OrdersColumn from "./orders-column";
 import { OrderWithMenuItems } from "@/types/types";
 import { fetchOrders } from "@/lib/api/order";
 import { useTranslations } from "next-intl";
 import useKitchenSocket from "../hooks/use-kitchen-socket";
+import { useCartStore } from "@/providers/cart-provider";
+import { useEffect } from "react";
 
-export default function KitchenContainer({
+export default function OrdersContainer({
   orders,
 }: {
   orders: OrderWithMenuItems[];
 }) {
   const t = useTranslations();
 
+  const hasNotification = useCartStore((state) => state.hasNotification);
+  const setNotification = useCartStore((state) => state.setNotification);
+
   const { data: queryOrders = orders, isError } = useQuery({
     queryKey: ["orders"],
     queryFn: fetchOrders,
     initialData: orders,
   });
+
+  useEffect(() => {
+    if (!hasNotification) return;
+
+    const timer = setTimeout(() => {
+      setNotification(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [hasNotification, setNotification]);
 
   useKitchenSocket();
 
@@ -36,13 +51,13 @@ export default function KitchenContainer({
   return (
     <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-5">
       <div className="grid sm:grid-cols-3 gap-3">
-        <KitchenColumn color={"blue"} orders={newOrders} title="newOrders" />
-        <KitchenColumn
+        <OrdersColumn color={"blue"} orders={newOrders} title="newOrders" />
+        <OrdersColumn
           color={"yellow"}
           orders={progessOrders}
           title="inProgressOrders"
         />
-        <KitchenColumn
+        <OrdersColumn
           color={"green"}
           orders={readyOrders}
           title="readyOrders"

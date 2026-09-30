@@ -16,12 +16,12 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: "metadata" });
 
   return {
-    title: t("kitchen.title"),
-    description: t("kitchen.description"),
+    title: t("myOrders.title"),
+    description: t("myOrders.description"),
   };
 }
 
-export default async function kitchen({
+export default async function myOrders({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -29,16 +29,17 @@ export default async function kitchen({
   const session = await auth.api.getSession({ headers: await headers() });
   const { locale } = await params;
 
-  if (session?.user.role === "WAITER") {
+  if (session?.user.role !== "WAITER") {
     redirect({
       href: {
-        pathname: "/my-orders",
+        pathname: "/kitchen",
       },
       locale: locale,
     });
     return;
   }
   const orders = await db.order.findMany({
+    where: { waiterId: session?.user.id },
     include: {
       items: {
         include: {
@@ -47,7 +48,6 @@ export default async function kitchen({
       },
     },
   });
-
   return (
     <ProtectedRoutes>
       <OrdersContainer orders={orders} />

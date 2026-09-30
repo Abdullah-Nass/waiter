@@ -8,10 +8,13 @@ import { authClient } from "@/lib/auth-client";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUnlockAudio } from "./use-unlock-audio";
 import { useTranslations } from "next-intl";
-import { CheckCircle2, Clock } from "lucide-react";
+import { CheckCircle2, Clock, X } from "lucide-react";
+import { useCartStore } from "@/providers/cart-provider";
 
 export default function useWaiterSocket() {
   const t = useTranslations();
+
+  const setNotification = useCartStore((state) => state.setNotification);
 
   const { data: session } = authClient.useSession();
   const queryClient = useQueryClient();
@@ -33,31 +36,36 @@ export default function useWaiterSocket() {
         tableNumber: number;
         status: OrderStatus;
       }) => {
-        toast(
-          t("notifications.statusChanged", {
-            tableNumber,
-            status: t(`kitchen.status.${status}`),
-          }),
-          {
-            icon:
-              status === "IN_PROGRESS" ? (
-                <Clock className="w-5 h-5 text-yellow-500" />
-              ) : (
-                <CheckCircle2 className="w-5 h-5 text-green-500" />
-              ),
-          },
-        );
-        queryClient.invalidateQueries({ queryKey: ["orders"] });
-
-        if (audioRef.current) {
-          audioRef.current.currentTime = 0;
-          audioRef.current.play().catch((e) => console.log(e));
+        if (status !== "SERVED") {
+          toast(
+            t("notifications.statusChanged", {
+              tableNumber,
+              status: t(`kitchen.status.${status}`),
+            }),
+            {
+              icon:
+                status === "IN_PROGRESS" ? (
+                  <Clock className="w-5 h-5 text-yellow-500" />
+                ) : status === "CANCELLED" ? (
+                  <X className="w-5 h-5 text-red-500" />
+                ) : (
+                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                ),
+              duration: 3000,
+            },
+          );
+          setNotification(true);
+          if (audioRef.current) {
+            audioRef.current.currentTime = 0;
+            audioRef.current.play().catch((e) => console.log(e));
+          }
         }
+        queryClient.invalidateQueries({ queryKey: ["orders"] });
       },
     );
 
     return () => {
       socket.off("order:statusChanged");
     };
-  }, [session, audioRef, t, queryClient]);
+  }, [session, audioRef, t, queryClient, setNotification]);
 }

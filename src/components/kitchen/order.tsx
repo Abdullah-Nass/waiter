@@ -4,8 +4,8 @@ import { TimeAgo } from "@/components/common/time-ago";
 import { OrderWithMenuItems } from "@/types/types";
 import { useLocale, useTranslations } from "next-intl";
 import StatusBtn from "./status-btn";
-import { colorsScheme } from "./kitchen-column";
 import { cn } from "cn";
+import { colorsScheme } from "../common/orders-column";
 
 export default function Order({
   order,
@@ -19,11 +19,18 @@ export default function Order({
   const locale = useLocale();
   const t = useTranslations();
   const scheme = colorsScheme[color];
+  const newStatus =
+    color === "blue" ? "IN_PROGRESS" : color === "yellow" ? "READY" : "SERVED";
+  const isWaiterGreen = role === "WAITER" && color === "green";
+  const isKitchen = role === "KITCHEN" && color !== "green";
+  const isVisible = isWaiterGreen || isKitchen;
 
+  const isWaiterBlue = role === "WAITER" && color === "blue";
+  const isCancelable = isWaiterBlue || isKitchen;
   return (
     <li
       className={cn(
-        "group overflow-hidden rounded-xl border bg-background p-4 space-y-2",
+        "group flex flex-col overflow-hidden rounded-xl border bg-background p-4 ",
         "shadow-sm transition-all duration-200",
         "hover:shadow-md",
         scheme.border,
@@ -54,26 +61,36 @@ export default function Order({
                   )}
                 >
                   {item.quantity}
-                </span>{" "}
+                </span>
                 <span> {name}</span>
+
+                {item.notes && (
+                  <div className={scheme.text}>
+                    {t("kitchen.note")}: {item.notes}
+                  </div>
+                )}
               </div>
-              {item.notes && (
-                <div className={scheme.text}>
-                  {t("kitchen.note")}: {item.notes}
-                </div>
-              )}
             </li>
           );
         })}
       </ul>
-      {role === "KITCHEN" && (
+
+      <div className="flex gap-2 flex-col sm:flex-row">
         <StatusBtn
           color={color}
-          newStatus={color === "blue" ? "IN_PROGRESS" : "READY"}
+          newStatus={newStatus}
           orderId={order.id}
-          visible={color === "green"}
+          visible={isVisible}
+          aria-label={t("metadata.statusBtn", { status: newStatus })}
         />
-      )}
+        <StatusBtn
+          color={"red"}
+          newStatus="CANCELLED"
+          orderId={order.id}
+          visible={isCancelable}
+          aria-label={t("metadata.statusBtn", { status: "CANCELLED" })}
+        />
+      </div>
     </li>
   );
 }

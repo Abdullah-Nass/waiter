@@ -19,7 +19,8 @@
     "user": "User",
     "orderSummary": "Order Summary",
     "menu": "Menu",
-    "newCategory": "New category"
+    "newCategory": "New category",
+    "myOrders": "My Orders"
   },
   "tables": {
     "tableNumber": "Table {number}",
@@ -55,11 +56,15 @@
     "table": "Table",
     "statusBtn": {
       "IN_PROGRESS": "Start Preparing",
-      "READY": "Mark as Ready"
+      "READY": "Mark as Ready",
+      "SERVED": "Served",
+      "CANCELLED": "Cancel"
     },
     "status": {
       "IN_PROGRESS": "being perpared",
-      "READY": "Ready"
+      "READY": "Ready",
+      "SERVED": "Served",
+      "CANCELLED": "Cancelled"
     },
     "noOrders": "No orders",
     "note": "Note",
@@ -115,13 +120,7 @@
       "placing": "Placing Order"
     }
   },
-  "elapsedTime": "{minutes}m ago",
-  "startPreparing": "Start Preparing",
-  "markReady": "Mark as Ready",
-
   "notifications": {
-    "orderReadyTitle": "Order Ready!",
-    "orderReadyBody": "Order for Table {tableNumber} is ready for pickup.",
     "newOrderAlert": "New order received for Table {tableNumber}",
     "statusChanged": "Table {tableNumber} order is now {status}"
   },
@@ -142,6 +141,7 @@
     "deleteCategoryBtn": "Delete category",
     "deleteItemBtn": "Delete item",
     "langaugeBtn": "Switch language to {label}",
+    "statusBtn": "Set order to {status}",
     "menu": {
       "title": "Menu",
       "description": "Browse our menu and place your order"
@@ -153,6 +153,10 @@
     "kitchen": {
       "title": "Kitchen",
       "description": "View kitchen orders"
+    },
+    "myOrders": {
+      "title": "My Orders",
+      "description": "View your orders status"
     },
     "checkoutBtn": "Checkout order",
     "menuBtn": "Browse menu",

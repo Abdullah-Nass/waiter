@@ -7,6 +7,7 @@ const pathnameToKey: Record<string, string> = {
   "/menu": "metadata.menu.title",
   "/checkout": "metadata.checkout.title",
   "/kitchen": "metadata.kitchen.title",
+  "/my-orders": "metadata.myOrders.title",
 };
 
 export function usePageTitle() {

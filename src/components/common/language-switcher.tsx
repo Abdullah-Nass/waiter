@@ -31,6 +31,7 @@ export default function LanguageSwitcher() {
       type="button"
       onClick={handleToggle}
       disabled={isPending}
+      variant={"ghost"}
       aria-label={t("metadata.langaugeBtn", { label })}
     >
       <Globe className="size-4" /> <span>{label}</span>

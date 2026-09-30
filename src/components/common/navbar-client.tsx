@@ -1,10 +1,13 @@
 "use client";
 
-import { Link } from "@/i18n/routing";
-import { ChefHat, ShoppingCart, User, UtensilsCrossed } from "lucide-react";
+import {
+  ChefHat,
+  ClipboardList,
+  ShoppingCart,
+  UtensilsCrossed,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
-import { Button } from "../ui/button";
 import { cn } from "cn";
 import { useCartStore } from "@/providers/cart-provider";
 import { useCartHydrated } from "@/lib/stores/cart";
@@ -13,11 +16,14 @@ import { NavbarProps } from "@/types/types";
 import LanguageSwitcher from "./language-switcher";
 import useWaiterSocket from "../hooks/use-waiter-socket";
 import { NavLink } from "./nav-link";
+import UserIcon from "./user-icon";
 
 export default function NavbarClient({ userName, userRole }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isHydrated = useCartHydrated();
   const title = usePageTitle();
+
+  const hasNotification = useCartStore((state) => state.hasNotification);
 
   const t = useTranslations();
 
@@ -37,7 +43,7 @@ export default function NavbarClient({ userName, userRole }: NavbarProps) {
             </h1>
 
             <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-secondary text-secondary-foreground border border-border rounded-full font-medium text-sm">
-              <User size={20} strokeWidth={1.4} />
+              <UserIcon userRole={userRole} />
 
               <span>
                 <strong className="font-semibold"> {userName}</strong>
@@ -54,26 +60,48 @@ export default function NavbarClient({ userName, userRole }: NavbarProps) {
               <UtensilsCrossed size={20} strokeWidth={1.4} />
               <span>{t("navigation.menu")}</span>
             </NavLink>
-            <NavLink
-              href="/kitchen"
-              className="font-semibold leading-none"
-              aria-label={t("metadata.kitchenBtn")}
-            >
-              <ChefHat size={20} strokeWidth={1.4} />
-              <span>{t("navigation.kitchenQueue")}</span>
-            </NavLink>
-            {userRole === "WAITER" && (
+            {userRole !== "WAITER" && (
               <NavLink
-                href="/checkout"
+                href="/kitchen"
                 className="font-semibold leading-none"
-                aria-label={t("metadata.checkoutBtn")}
+                aria-label={t("metadata.kitchenBtn")}
               >
-                <ShoppingCart size={20} strokeWidth={1.4} />
-                <span>{t("navigation.orderSummary")}</span>
-                <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold text-primary-foreground bg-primary rounded-full">
-                  {activeOrdersCount}
-                </span>
+                <ChefHat size={20} strokeWidth={1.4} />
+                <span>{t("navigation.kitchenQueue")}</span>
               </NavLink>
+            )}
+            {userRole === "WAITER" && (
+              <>
+                <NavLink
+                  href="/my-orders"
+                  className="inline-flex items-center gap-2 font-semibold leading-none"
+                  aria-label={t("metadata.checkoutBtn")}
+                >
+                  <span className="relative inline-flex items-center justify-center">
+                    <ClipboardList size={20} strokeWidth={1.4} />
+
+                    {hasNotification && (
+                      <span className="absolute -top-1 -end-1 flex h-2.5 w-2.5">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-white" />
+                      </span>
+                    )}
+                  </span>
+
+                  <span>{t("navigation.myOrders")}</span>
+                </NavLink>
+                <NavLink
+                  href="/checkout"
+                  className="font-semibold leading-none"
+                  aria-label={t("metadata.checkoutBtn")}
+                >
+                  <ShoppingCart size={20} strokeWidth={1.4} />
+                  <span>{t("navigation.orderSummary")}</span>
+                  <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold text-primary-foreground bg-primary rounded-full">
+                    {activeOrdersCount}
+                  </span>
+                </NavLink>
+              </>
             )}
             <LanguageSwitcher />
           </div>
@@ -112,45 +140,56 @@ export default function NavbarClient({ userName, userRole }: NavbarProps) {
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 md:hidden border-t border-border bg-background/95 backdrop-blur px-4 pt-3 pb-4 space-y-2.5 shadow-lg animate-in fade-in-0 duration-200">
+        <div className="absolute flex flex-col top-full left-0 right-0 md:hidden border-t border-border bg-background/95 backdrop-blur px-4 pt-3 pb-4 gap-2.5 shadow-lg animate-in fade-in-0 duration-200">
           <div className="flex items-center justify-center gap-2 px-3 py-1 bg-secondary text-secondary-foreground border border-border rounded-full font-medium text-md">
-            <User size={20} strokeWidth={1.4} />
+            <UserIcon userRole={userRole} />
 
             <span className="font-semibold">{userName}</span>
           </div>
           <NavLink
-            className="w-full justify-start"
+            className="w-full justify-start font-semibold leading-none"
             href={"/menu"}
             aria-label={t("metadata.menuBtn")}
           >
             <UtensilsCrossed size={20} strokeWidth={1.4} />
             <span>{t("navigation.menu")}</span>
           </NavLink>
-
-          <NavLink
-            className="w-full justify-start"
-            href="/kitchen"
-            aria-label={t("metadata.kitchenBtn")}
-          >
-            <ChefHat size={20} strokeWidth={1.4} />
-            <span>{t("navigation.kitchenQueue")}</span>
-          </NavLink>
-          {userRole === "WAITER" && (
+          {userRole !== "WAITER" && (
             <NavLink
-              className="w-full justify-start"
-              href="/checkout"
-              aria-label={t("metadata.checkoutBtn")}
+              className="w-full justify-start font-semibold leading-none"
+              href="/kitchen"
+              aria-label={t("metadata.kitchenBtn")}
             >
-              <ShoppingCart size={20} strokeWidth={1.4} />
-              <p className="font-semibold leading-none">
-                {t("navigation.orderSummary")}
-              </p>
-              <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold text-primary-foreground bg-primary rounded-full">
-                {activeOrdersCount}
-              </span>
+              <ChefHat size={20} strokeWidth={1.4} />
+              <span>{t("navigation.kitchenQueue")}</span>
             </NavLink>
           )}
-          <LanguageSwitcher />
+          {userRole === "WAITER" && (
+            <>
+              <NavLink
+                href="/my-orders"
+                className="w-full justify-start font-semibold leading-none"
+                aria-label={t("metadata.checkoutBtn")}
+              >
+                <ClipboardList size={20} strokeWidth={1.4} />
+                <span>{t("navigation.myOrders")}</span>
+              </NavLink>
+              <NavLink
+                className="w-full justify-start font-semibold leading-none"
+                href="/checkout"
+                aria-label={t("metadata.checkoutBtn")}
+              >
+                <ShoppingCart size={20} strokeWidth={1.4} />
+                <p>{t("navigation.orderSummary")}</p>
+                <span className="inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold text-primary-foreground bg-primary rounded-full">
+                  {activeOrdersCount}
+                </span>
+              </NavLink>
+            </>
+          )}
+          <div className="self-end">
+            <LanguageSwitcher />
+          </div>
         </div>
       )}
     </header>

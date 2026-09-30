@@ -5,6 +5,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 export type CartState = {
   items: CartItem[];
+  hasNotification: boolean;
 };
 
 export type CartActions = {
@@ -14,12 +15,14 @@ export type CartActions = {
   clearCart: () => void;
   totalPrice: () => number;
   totalItems: () => number;
+  setNotification: (show: boolean) => void;
 };
 
 export type CartStore = CartState & CartActions;
 
 export const defaultInitState: CartState = {
   items: [],
+  hasNotification: false,
 };
 
 export const createCartStore = (
@@ -30,6 +33,8 @@ export const createCartStore = (
     persist(
       (set, get) => ({
         ...initState,
+
+        setNotification: (show: boolean) => set({ hasNotification: show }),
 
         addItem: (item) =>
           set((state) => {
@@ -78,7 +83,10 @@ export const createCartStore = (
       {
         name: `waiter_cart_${waiterId}`,
         storage: createJSONStorage(() => localStorage),
-        partialize: (state) => ({ items: state.items }),
+        partialize: (state) => ({
+          items: state.items,
+          hasNotification: state.hasNotification,
+        }),
       },
     ),
   );

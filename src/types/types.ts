@@ -1,8 +1,8 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, Role } from "@prisma/client";
 
 export interface NavbarProps {
   userName: string;
-  userRole: string;
+  userRole: Role;
 }
 
 export interface CartItem {
