@@ -20,7 +20,8 @@
     "orderSummary": "Order Summary",
     "menu": "Menu",
     "newCategory": "New category",
-    "myOrders": "My Orders"
+    "myOrders": "My Orders",
+    "staff": "Staff"
   },
   "tables": {
     "tableNumber": "Table {number}",
@@ -99,6 +100,51 @@
     "deleteItem": {
       "title": "Are you sure you want to delete \"{item}\"?",
       "description": "This action cannot be undone. This will permanently delete the item."
+    },
+    "staff": {
+      "errors": {
+        "emailTaken": "A user with this email already exists.",
+        "fieldsRequired": "All fields are required.",
+        "shortName": "Name must be at least 2 characters.",
+        "longName": "Name is too long.",
+        "wrongEmail": "Invalid email address.",
+        "longPassword": "Password is too long.",
+        "shortPasswrod": "Password must be at least 8 characters.",
+        "staffNotFound": "Staff member not found.",
+        "lastAdmin": "Cannot delete the last administrator.",
+        "hasOrders": "Cannot delete staff member with linked orders.",
+        "ownAccount": "You cannot delete your own account."
+      },
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "password": "Password",
+        "role": "Role"
+      },
+      "roles": {
+        "placeholder": "Choose role",
+        "waiter": "Waiter",
+        "kitchen": "Kitchen Staff",
+        "admin": "Admin"
+      },
+      "add": {
+        "title": "Add new member",
+        "description": "Add a new memebr to your staff",
+        "trigger": "Add staff member"
+      },
+      "table": {
+        "title": "All Staff Members ({count})",
+        "headName": "NAME",
+        "headEmail": "EMAIL",
+        "headRole": "ROLE",
+        "headJoined": "JOINED",
+        "headActions": "ACTIONS",
+        "delete": "Delete"
+      },
+      "confirmTitle": "Delete Staff Member",
+      "confirmSubtitle": "Are you sure you want to delete {username}? This action cannot be undone.",
+      "title": "Staff Management",
+      "subtitle": "Manage your restaurant staff."
     }
   },
   "cart": {
@@ -130,7 +176,8 @@
     "cancel": "Cancel",
     "confirm": "Confirm",
     "delete": "Delete",
-    "confirming": "Confirming",
+    "deleting": "Deleting...",
+    "confirming": "Confirming...",
     "back": "Back",
     "loading": "Loading...",
     "errorOccurred": "An unexpected error occurred"
@@ -158,9 +205,14 @@
       "title": "My Orders",
       "description": "View your orders status"
     },
+    "staff": {
+      "title": "Staff",
+      "description": "Manage your restaurant staff."
+    },
     "checkoutBtn": "Checkout order",
     "menuBtn": "Browse menu",
-    "kitchenBtn": "View kitchen"
+    "kitchenBtn": "View kitchen",
+    "staffBtn": "Manage Staff"
   },
   "edit": {
     "delete": "Delete item",
@@ -208,6 +260,8 @@
     "deleteCategory": "Category deleted successfully!",
     "deleteCategoryFaild": "Failed to delete category!",
     "deleteItem": "Item deleted successfully!",
-    "deleteItemFaild": "Failed to delete item!"
+    "deleteItemFaild": "Failed to delete item!",
+    "deleteStaff": "Staff member deleted successfully!",
+    "deleteStaffFailed": "Failed to delete staff member"
   }
 }

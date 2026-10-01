@@ -3,6 +3,7 @@
 import {
   ChefHat,
   ClipboardList,
+  IdCard,
   ShoppingCart,
   UtensilsCrossed,
 } from "lucide-react";
@@ -60,6 +61,16 @@ export default function NavbarClient({ userName, userRole }: NavbarProps) {
               <UtensilsCrossed size={20} strokeWidth={1.4} />
               <span>{t("navigation.menu")}</span>
             </NavLink>
+            {userRole === "ADMIN" && (
+              <NavLink
+                href="/staff"
+                className="font-semibold leading-none"
+                aria-label={t("metadata.staffBtn")}
+              >
+                <IdCard size={20} strokeWidth={1.4} />
+                <span>{t("navigation.staff")}</span>
+              </NavLink>
+            )}
             {userRole !== "WAITER" && (
               <NavLink
                 href="/kitchen"
@@ -154,6 +165,16 @@ export default function NavbarClient({ userName, userRole }: NavbarProps) {
             <UtensilsCrossed size={20} strokeWidth={1.4} />
             <span>{t("navigation.menu")}</span>
           </NavLink>
+          {userRole === "ADMIN" && (
+            <NavLink
+              className="w-full justify-start font-semibold leading-none"
+              href={"/staff"}
+              aria-label={t("metadata.staffBtn")}
+            >
+              <IdCard size={20} strokeWidth={1.4} />
+              <span>{t("navigation.staff")}</span>
+            </NavLink>
+          )}
           {userRole !== "WAITER" && (
             <NavLink
               className="w-full justify-start font-semibold leading-none"

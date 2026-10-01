@@ -1,12 +1,12 @@
 import ProtectedRoutes from "@/components/common/protected-routes";
-import OrdersContainer from "@/components/common/orders-container";
+import StaffContaienr from "@/components/staff/staff-container";
 import { redirect } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
+import { ROLE_HOME } from "@/lib/permissions";
 import { db } from "@/lib/prisma/db";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
-import { ROLE_HOME } from "@/lib/permissions";
 
 export async function generateMetadata({
   params,
@@ -22,7 +22,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function myOrders({
+export default async function staff({
   params,
 }: {
   params: Promise<{ locale: string }>;
@@ -30,28 +30,22 @@ export default async function myOrders({
   const session = await auth.api.getSession({ headers: await headers() });
   const { locale } = await params;
 
-  if (session?.user.role !== "WAITER") {
+  if (session?.user.role !== "ADMIN") {
     redirect({
       href: {
-        pathname: ROLE_HOME[session?.user.role || "KITCHEN"],
+        pathname: ROLE_HOME[session?.user.role || "WAITER"],
       },
       locale: locale,
     });
     return;
   }
-  const orders = await db.order.findMany({
-    where: { waiterId: session?.user.id },
-    include: {
-      items: {
-        include: {
-          menuItem: true,
-        },
-      },
-    },
+  const staffMembers = await db.user.findMany({
+    orderBy: { createdAt: "desc" },
   });
+
   return (
     <ProtectedRoutes>
-      <OrdersContainer orders={orders} />
+      <StaffContaienr staffMembers={staffMembers} />
     </ProtectedRoutes>
   );
 }

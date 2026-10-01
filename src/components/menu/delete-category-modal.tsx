@@ -1,4 +1,4 @@
-import { ConfirmDialog } from "./confirm-modal";
+import { ConfirmDialog } from "../common/confirm-modal";
 import { Button } from "../ui/button";
 import { X } from "lucide-react";
 import { useTranslations } from "next-intl";

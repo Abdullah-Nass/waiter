@@ -7,7 +7,7 @@ import { CartProvider } from "@/providers/cart-provider";
 
 export default async function ProtectedRoutes({
   ...props
-}: React.ComponentProps<"div">) {
+}: React.ComponentProps<"main">) {
   const locale = await getLocale();
 
   const session = await auth.api.getSession({ headers: await headers() });
@@ -23,7 +23,7 @@ export default async function ProtectedRoutes({
   return (
     <CartProvider waiterId={session.user.id}>
       <Navbar userName={session.user.name} userRole={session.user.role} />
-      <div {...props} />
+      <main {...props} />
     </CartProvider>
   );
 }

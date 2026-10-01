@@ -4,7 +4,7 @@ import QuantityControl from "../common/quantity-control";
 import { useCartStore } from "@/providers/cart-provider";
 import { Button } from "../ui/button";
 import { Trash } from "lucide-react";
-import { ConfirmDialog } from "../menu/confirm-modal";
+import { ConfirmDialog } from "../common/confirm-modal";
 
 export default function Item({ item }: { item: CartItem }) {
   const locale = useLocale();
