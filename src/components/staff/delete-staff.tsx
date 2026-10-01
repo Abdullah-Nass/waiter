@@ -39,7 +39,7 @@ export default function DeleteStaff({
       trigger={
         <Button
           variant={"destructive"}
-          className="text-destructive"
+          className="text-destructive self-end"
           type="button"
           disabled={isPending}
         >

@@ -3,8 +3,11 @@ import { User } from "@prisma/client";
 import { getRoleVariant } from "@/lib/utils";
 import { Badge } from "../ui/badge";
 import { useTranslations } from "next-intl";
+import { authClient } from "@/lib/auth-client";
+import LineSkeleton from "../common/line-skeleton";
 
 export default function StaffTable({ staffMembers }: { staffMembers: User[] }) {
+  const { data: session, isPending } = authClient.useSession();
   const t = useTranslations("admin.staff.table");
 
   return (
@@ -46,8 +49,14 @@ export default function StaffTable({ staffMembers }: { staffMembers: User[] }) {
                 <td className="py-3.5 px-6 text-muted-foreground">
                   {new Date(member.createdAt).toLocaleDateString()}
                 </td>
-                <td className="py-3.5 px-6 text-right">
-                  <DeleteStaff userId={member.id} username={member.name} />
+                <td className="py-3.5 px-6 self-end flex flex-col">
+                  {isPending ? (
+                    <LineSkeleton className="h-4 w-12 self-end" />
+                  ) : (
+                    session!.user.id !== member.id && (
+                      <DeleteStaff userId={member.id} username={member.name} />
+                    )
+                  )}
                 </td>
               </tr>
             ))}

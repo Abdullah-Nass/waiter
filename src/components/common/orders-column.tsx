@@ -5,8 +5,8 @@ import { cn } from "cn";
 import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
-import { OrderSkeleton } from "../kitchen/order-skeleton";
 import Order from "../kitchen/order";
+import { OrderSkeleton } from "./order-skeleton";
 
 export const colorsScheme = {
   blue: {
