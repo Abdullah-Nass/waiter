@@ -20,7 +20,7 @@ export default function StaffContaienr({
     initialData: staffMembers,
   });
   return (
-    <main className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-5 space-y-6">
+    <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-5 space-y-6">
       <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
@@ -35,6 +35,6 @@ export default function StaffContaienr({
       </header>
 
       <StaffTable staffMembers={data} />
-    </main>
+    </div>
   );
 }

@@ -33,9 +33,5 @@ export default async function checkout() {
     });
     return;
   }
-  return (
-    <ProtectedRoutes>
-      <CheckoutContainer waiterId={session?.user.id} />;
-    </ProtectedRoutes>
-  );
+  return <CheckoutContainer waiterId={session?.user.id} />;
 }

@@ -1,9 +1,11 @@
 import ProtectedRoutes from "@/components/common/protected-routes";
 import MenuContainer from "@/components/menu/menu-container";
 import { redirect } from "@/i18n/routing";
+import { auth } from "@/lib/auth";
 import { db } from "@/lib/prisma/db";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
+import { headers } from "next/headers";
 
 type MenuPageProps = {
   params: Promise<{ locale: string }>;
@@ -30,6 +32,8 @@ export default async function MenuPage({
 }: MenuPageProps) {
   const { locale } = await params;
   const resolvedSearchParams = await searchParams;
+  const session = await auth.api.getSession({ headers: await headers() });
+
   const categories = await db.category.findMany({
     orderBy: { sortOrder: "asc" },
     include: {
@@ -50,8 +54,6 @@ export default async function MenuPage({
   }
 
   return (
-    <ProtectedRoutes>
-      <MenuContainer initialCategories={categories} />
-    </ProtectedRoutes>
+    <MenuContainer initialCategories={categories} role={session!.user.role} />
   );
 }

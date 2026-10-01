@@ -5,19 +5,19 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import CategoryList from "./category-list";
 import MenuList from "./menu-list";
-import { authClient } from "@/lib/auth-client";
 import { getSocket } from "@/lib/socket/client";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { fetchMenu } from "@/lib/api/menu";
-import LoadingComponent from "../common/loading-component";
 import CartFloat from "./cart-float";
 
 type CategoryWithItems = Category & { items: MenuItem[] };
 
 export default function MenuContainer({
   initialCategories,
+  role,
 }: {
   initialCategories: CategoryWithItems[];
+  role: string;
 }) {
   const searchParams = useSearchParams();
 
@@ -28,8 +28,6 @@ export default function MenuContainer({
     initialData: initialCategories,
   });
 
-  const { data: session, isPending } = authClient.useSession();
-
   const categoryParam = searchParams.get("category");
   const validCategory =
     categories.find((cat) => cat.id === Number(categoryParam)) ?? categories[0];
@@ -39,9 +37,7 @@ export default function MenuContainer({
     categories.find((cat) => cat.id === selectedId) ?? categories[0];
 
   useEffect(() => {
-    if (!session?.user.role) return;
-
-    const socket = getSocket(session.user.role);
+    const socket = getSocket(role);
 
     socket.on(
       "menu:item-availability",
@@ -60,23 +56,21 @@ export default function MenuContainer({
     return () => {
       socket.off("menu:item-availability");
     };
-  }, [session?.user.role, queryClient]);
-
-  if (isPending) return <LoadingComponent />;
+  }, [role, queryClient]);
 
   return (
     <div className="flex relative">
       <CategoryList
         categories={categories}
         selectedId={selectedId}
-        role={session!.user.role}
+        role={role}
         onSelect={(id) => {
           setSelectedId(id);
           window.history.replaceState(null, "", `?category=${id}`);
         }}
       />
       <MenuList items={activeCategory?.items} categories={categories} />
-      {session!.user.role === "WAITER" && <CartFloat />}
+      {role === "WAITER" && <CartFloat />}
     </div>
   );
 }

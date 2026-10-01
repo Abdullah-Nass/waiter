@@ -1,4 +1,3 @@
-import ProtectedRoutes from "@/components/common/protected-routes";
 import OrdersContainer from "@/components/common/orders-container";
 import { redirect } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
@@ -49,9 +48,5 @@ export default async function myOrders({
       },
     },
   });
-  return (
-    <ProtectedRoutes>
-      <OrdersContainer orders={orders} />
-    </ProtectedRoutes>
-  );
+  return <OrdersContainer orders={orders} />;
 }
