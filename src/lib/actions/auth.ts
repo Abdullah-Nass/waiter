@@ -6,7 +6,14 @@ import { Prisma } from "@prisma/client";
 
 import { db } from "../prisma/db";
 import { hashPassword } from "better-auth/crypto";
-import { StaffFormValues, staffSchema } from "../validation";
+import {
+  LoginFormValues,
+  loginSchema,
+  StaffFormValues,
+  staffSchema,
+} from "../validation";
+import { redirect } from "next/navigation";
+import { APIError } from "better-auth";
 
 export async function getStaff() {
   try {
@@ -41,7 +48,7 @@ export async function createStaffMember(values: StaffFormValues) {
     const parsed = staffSchema.safeParse(values);
 
     if (!parsed.success) {
-      return { success: false, error: "admin.auth.errors.invalidFields" };
+      return { success: false, error: "admin.staff.errors.invalidFields" };
     }
     const { name, email, password, role } = parsed.data;
 
@@ -71,7 +78,7 @@ export async function createStaffMember(values: StaffFormValues) {
     ) {
       return {
         success: false,
-        error: "admin.auth.errors.emailTaken",
+        error: "admin.staff.errors.emailTaken",
       };
     }
 
@@ -81,6 +88,7 @@ export async function createStaffMember(values: StaffFormValues) {
     };
   }
 }
+
 export async function deleteStaffMember(userId: string) {
   try {
     const currentUser = await verifyAdmin();
@@ -151,4 +159,46 @@ export async function deleteStaffMember(userId: string) {
       error: "common.errorOccurred",
     };
   }
+}
+
+export async function login(values: LoginFormValues) {
+  try {
+    const parsed = loginSchema.safeParse(values);
+
+    if (!parsed.success) {
+      return { success: false, error: "auth.invalidFields" };
+    }
+
+    const { email, password } = parsed.data;
+
+    await auth.api.signInEmail({
+      body: { email, password },
+    });
+  } catch (error: unknown) {
+    if (error instanceof APIError && error.status === "UNAUTHORIZED") {
+      return {
+        success: false,
+        error: "auth.invalidCredentials",
+      };
+    }
+
+    if (
+      typeof error === "object" &&
+      error !== null &&
+      "status" in error &&
+      error.status === 401
+    ) {
+      return {
+        success: false,
+        error: "auth.invalidCredentials",
+      };
+    }
+
+    return {
+      success: false,
+      error: "common.errorOccurred",
+    };
+  }
+
+  redirect("/");
 }

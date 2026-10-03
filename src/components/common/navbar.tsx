@@ -18,6 +18,7 @@ import LanguageSwitcher from "./language-switcher";
 import useWaiterSocket from "../hooks/use-waiter-socket";
 import { NavLink } from "./nav-link";
 import UserIcon from "./user-icon";
+import Logout from "../auth/logout";
 
 export default function Navbar({ userName, userRole }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -115,6 +116,7 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
               </>
             )}
             <LanguageSwitcher />
+            <Logout />
           </div>
 
           {/* Mobile Menu Toggle Button */}
@@ -122,7 +124,7 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="flex lg:hidden flex-col justify-center items-center w-8 h-8 space-y-1.5 focus:outline-none"
-              aria-label="Toggle menu"
+              aria-label={t("metadata.toggleMenuBtn")}
             >
               <span
                 className={cn(
@@ -208,7 +210,8 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
               </NavLink>
             </>
           )}
-          <div className="self-end">
+          <div className="flex justify-between">
+            <Logout />
             <LanguageSwitcher />
           </div>
         </div>

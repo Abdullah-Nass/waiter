@@ -1,4 +1,3 @@
-import ProtectedRoutes from "@/components/common/protected-routes";
 import StaffContaienr from "@/components/staff/staff-container";
 import { redirect } from "@/i18n/routing";
 import { auth } from "@/lib/auth";

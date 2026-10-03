@@ -16,3 +16,10 @@ export const staffSchema = z.object({
 });
 
 export type StaffFormValues = z.infer<typeof staffSchema>;
+
+export const loginSchema = z.object({
+  email: z.email(),
+  password: z.string().min(1),
+});
+
+export type LoginFormValues = z.infer<typeof loginSchema>;

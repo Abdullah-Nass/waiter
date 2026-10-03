@@ -1,5 +1,4 @@
 import CheckoutContainer from "@/components/checkout/checkout-container";
-import ProtectedRoutes from "@/components/common/protected-routes";
 import { redirect } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
 import { ROLE_HOME } from "@/lib/permissions";
@@ -17,7 +16,7 @@ export async function generateMetadata({
 
   return {
     title: t("checkout.title"),
-    description: t("menu.description"),
+    description: t("checkout.description"),
   };
 }
 

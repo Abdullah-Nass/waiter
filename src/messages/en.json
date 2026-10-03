@@ -1,13 +1,19 @@
 {
   "auth": {
-    "loginTitle": "Staff Terminal Login",
-    "enterPin": "Enter your PIN",
-    "invalidPin": "Invalid PIN. Please try again.",
-    "selectRole": "Select Role",
+    "welcomeBack": "Welcome back",
+    "enterCredentialsPrompt": "Enter your email and password to sign in to your account.",
+    "invalidCredentials": "Invalid email or password.",
+    "invalidFields": "Please check your information and try again.",
     "logout": "Log Out",
-    "roles": {
-      "WAITER": "Waiter",
-      "KITCHEN": "Kitchen Staff"
+    "login": "Log In",
+    "loggingin": "Logging in...",
+    "email": "Email",
+    "emailPlaceholder": "Enter your email",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "validation": {
+      "email": "Please enter a valid email address.",
+      "password": "Password is required."
     }
   },
   "navigation": {
@@ -113,7 +119,8 @@
         "staffNotFound": "Staff member not found.",
         "lastAdmin": "Cannot delete the last administrator.",
         "hasOrders": "Cannot delete staff member with linked orders.",
-        "ownAccount": "You cannot delete your own account."
+        "ownAccount": "You cannot delete your own account.",
+        "invalidFields": "Please check your information and try again."
       },
       "fields": {
         "name": "Name",
@@ -185,10 +192,13 @@
   "metadata": {
     "menuBtnOpen": "Collapse categories",
     "menuBtnClosed": "Expand categories",
+    "toggleMenuBtn": "Tooggle Menu",
     "deleteCategoryBtn": "Delete category",
     "deleteItemBtn": "Delete item",
     "langaugeBtn": "Switch language to {label}",
     "statusBtn": "Set order to {status}",
+    "loginBtn": "Log in",
+    "logoutBtn": "Log out",
     "menu": {
       "title": "Menu",
       "description": "Browse our menu and place your order"
@@ -208,6 +218,10 @@
     "staff": {
       "title": "Staff",
       "description": "Manage your restaurant staff."
+    },
+    "login": {
+      "title": "Login",
+      "description": "Login to your account."
     },
     "checkoutBtn": "Checkout order",
     "menuBtn": "Browse menu",
