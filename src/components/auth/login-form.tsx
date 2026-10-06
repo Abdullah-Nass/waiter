@@ -2,20 +2,17 @@
 
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useRouter } from "@/i18n/routing";
 import { LoginFormValues, loginSchema } from "@/lib/validation";
 import { login } from "@/lib/actions/auth";
 
 export default function LoginForm() {
   const t = useTranslations();
-  const router = useRouter();
 
   const [isPending, startTransition] = useTransition();
 

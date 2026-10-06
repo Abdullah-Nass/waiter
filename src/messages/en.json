@@ -17,10 +17,7 @@
     }
   },
   "navigation": {
-    "tables": "Tables",
-    "orders": "Orders",
     "kitchenQueue": "Kitchen Display",
-    "settings": "Settings",
     "categories": "Categories",
     "user": "User",
     "orderSummary": "Order Summary",
@@ -29,13 +26,8 @@
     "myOrders": "My Orders",
     "staff": "Staff"
   },
-  "tables": {
-    "tableNumber": "Table {number}",
-    "openOrder": "New Order",
-    "viewActiveOrder": "View Order"
-  },
+
   "orders": {
-    "ticketNumber": "Order #{id}",
     "status": {
       "sent": "Sent to Kitchen",
       "in_progress": "In Progress",
@@ -178,15 +170,11 @@
     "statusChanged": "Table {tableNumber} order is now {status}"
   },
   "common": {
-    "save": "Save",
-    "saving": "Saving...",
     "cancel": "Cancel",
     "confirm": "Confirm",
     "delete": "Delete",
     "deleting": "Deleting...",
     "confirming": "Confirming...",
-    "back": "Back",
-    "loading": "Loading...",
     "errorOccurred": "An unexpected error occurred"
   },
   "metadata": {
