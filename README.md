@@ -1,36 +1,155 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Waiter — Restaurant Ordering System
 
-## Getting Started
+A real-time, bilingual (Arabic/English) restaurant ordering system built with Next.js 15, Socket.io, and PostgreSQL. Waiters take orders from a menu and send them to the kitchen instantly. Kitchen staff manage order progress in a live three-column board. Admins manage the menu and staff accounts.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Features
+
+### Roles
+
+Three roles with layout-level route protection:
+
+| Role        | Can do                                                                                                      |
+| ----------- | ----------------------------------------------------------------------------------------------------------- |
+| **WAITER**  | Browse menu, add items to cart, submit orders, view their order history with live status updates            |
+| **KITCHEN** | View incoming orders in real time, move orders through SENT → IN_PROGRESS → READY, toggle item availability |
+| **ADMIN**   | Observe everything and edit menu items (name, description, price), manage categories, manage staff accounts |
+
+### Real-time
+
+- New orders appear on the kitchen board instantly via Socket.io — no refresh needed
+- Kitchen status changes (IN_PROGRESS / READY) notify the waiter as a toast alert anywhere in the app
+- Menu item availability toggled by kitchen propagates live to all connected clients
+- New-order sound on the kitchen board (with browser autoplay unlock on first interaction)
+
+### i18n
+
+- Full EN/AR support with `next-intl` and localized routing (`/en/...` · `/ar/...`)
+- Automatic RTL/LTR layout switching
+- Bilingual menu data stored at the DB level (`nameAr` / `nameEn`, `descAr` / `descEn`) — not just UI strings
+- Per-page SEO metadata in both languages
+
+### Other
+
+- Cart persists across page refreshes via `localStorage` scoped to waiter ID
+- Single Server Action atomically creates `Order` + `OrderItem` records on checkout
+- All interactive elements have `aria-label` attributes
+- Role-based protected layouts
+
+---
+
+## Tech Stack
+
+| Layer     | Choice                                                  |
+| --------- | ------------------------------------------------------- |
+| Framework | Next.js 15 App Router                                   |
+| Language  | TypeScript (strict)                                     |
+| Styling   | Tailwind CSS                                            |
+| Database  | PostgreSQL via Neon                                     |
+| ORM       | Prisma 7                                                |
+| Auth      | Better Auth (email/password)                            |
+| Real-time | Socket.io on a custom Node.js server                    |
+| State     | Zustand (per-request provider pattern) + TanStack Query |
+| Forms     | React Hook Form + Zod                                   |
+| i18n      | next-intl                                               |
+
+---
+
+## Architecture decisions
+
+### Role-based routing
+
+Authentication and role redirection are handled in the `(protected)` layout — a single server component that checks the session and redirects unauthenticated users to `/login`. Authenticated users are redirected to their role's home page via a `ROLE_HOME` map (`ADMIN → /staff`, `WAITER → /menu`, `KITCHEN → /kitchen`), so no role can accidentally land on another role's default page. Individual pages do their own role checks for finer-grained access control.
+
+---
+
+## Project structure
+
+```text
+├── prisma/
+│   ├── schema.prisma
+│   └── seed.ts
+├── public/
+│   └── sounds/
+│       └── notification.mp3
+├── src/
+│   ├── app/
+│   │   ├── [locale]/
+│   │   │   ├── (auth)/                  # Login page + layout
+│   │   │   │   ├── login/page.tsx
+│   │   │   │   ├── layout.tsx
+│   │   │   │   └── loading.tsx
+│   │   │   ├── (protected)/             # All authenticated routes
+│   │   │   │   ├── checkout/page.tsx
+│   │   │   │   ├── kitchen/page.tsx
+│   │   │   │   ├── menu/page.tsx
+│   │   │   │   ├── my-orders/page.tsx   # Waiter order history
+│   │   │   │   ├── staff/page.tsx       # Admin staff management
+│   │   │   │   ├── layout.tsx           # Blocks unauthenticated users + redirects each role to their home page
+│   │   │   │   └── loading.tsx
+│   │   │   └── layout.tsx               # Root layout — NextIntlClientProvider
+│   │   └── api/
+│   │       ├── auth/[...all]/route.ts   # Better Auth handler
+│   │       ├── menu/route.ts            # GET categories with items
+│   │       ├── order/route.ts           # GET active orders for kitchen
+│   │       └── staff/route.ts           # GET staff list
+│   ├── components/
+│   │   ├── auth/                        # Login form + logout
+│   │   ├── checkout/                    # Cart list, cart items, checkout form
+│   │   ├── common/                      # Navbar, language switcher, skeletons,
+│   │   │                                # shared orders column + container, time-ago
+│   │   ├── hooks/                       # use-kitchen-socket, use-waiter-socket,
+│   │   │                                # use-page-title, use-unlock-audio
+│   │   ├── kitchen/                     # Order card + status button
+│   │   ├── menu/                        # Menu container, item drawer per role,
+│   │   │                                # add/edit/delete modals for items and categories
+│   │   ├── staff/                       # Staff table, add/delete staff modals
+│   │   └── ui/                          # shadcn/ui primitives
+│   ├── i18n/
+│   │   ├── request.ts                   # next-intl server config
+│   │   └── routing.ts                   # Locale routing definition
+│   ├── lib/
+│   │   ├── actions/                     # Server Actions
+│   │   │   ├── admin.ts                 # Staff CRUD
+│   │   │   ├── auth.ts                  # Sign in / sign out
+│   │   │   ├── kitchen.ts               # Order status updates
+│   │   │   ├── menu-items.ts            # Menu + category mutations
+│   │   │   └── orders.ts                # Place order
+│   │   ├── api/                         # Client-side fetch functions
+│   │   │   ├── menu.ts
+│   │   │   ├── order.ts
+│   │   │   └── staff.ts
+│   │   ├── prisma/db.ts                 # Prisma singleton
+│   │   ├── socket/
+│   │   │   ├── server.ts                # getIO() — used by Server Actions
+│   │   │   └── client.ts                # getSocket() — singleton for client components
+│   │   ├── stores/cart.ts               # Zustand cart store factory
+│   │   ├── auth.ts                      # Better Auth config
+│   │   ├── auth-client.ts               # Better Auth client
+│   │   ├── permissions.ts               # ROLE_HOME map — ADMIN → /staff, WAITER → /menu, KITCHEN → /kitchen
+│   │   ├── utils.ts
+│   │   └── validation.ts                # Shared Zod schemas
+│   ├── messages/
+│   │   ├── en.json
+│   │   └── ar.json
+│   ├── providers/
+│   │   ├── cart-provider.tsx            # Zustand per-request provider
+│   │   └── query-provider.tsx           # TanStack Query provider
+│   └── types/
+│       ├── menu.d.ts
+│       ├── socket.d.ts
+│       └── types.ts
+└── server.ts                            # Custom Node.js + Socket.io server
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Socket.io event reference
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Event                    | Direction             | Payload                            | Trigger                      |
+| ------------------------ | --------------------- | ---------------------------------- | ---------------------------- |
+| `order:new`              | Server → Kitchen room | `order` object                     | Waiter submits order         |
+| `order:updated`          | Server → All clients  | `{ orderId, status }`              | Kitchen changes status       |
+| `order:statusChanged`    | Server → Waiter room  | `{ orderId, tableNumber, status }` | Kitchen changes status       |
+| `menu:item-availability` | Server → All clients  | `{ id, available }`                | Kitchen toggles availability |
