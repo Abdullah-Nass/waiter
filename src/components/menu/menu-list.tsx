@@ -29,7 +29,7 @@ export default function MenuList({
   const { data: session } = authClient.useSession();
 
   return (
-    <div className="container mx-auto p-4 sm:px-6 lg:px-8">
+    <div className="container max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
       <div className="grid sm:flex flex-wrap gap-2">
         {session?.user.role === "ADMIN" && (
           <AddItemModal categories={categories} />
