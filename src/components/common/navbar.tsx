@@ -194,7 +194,16 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
                 className="w-full justify-start font-semibold leading-none"
                 aria-label={t("metadata.checkoutBtn")}
               >
-                <ClipboardList size={20} strokeWidth={1.4} />
+                <span className="relative inline-flex items-center justify-center">
+                  <ClipboardList size={20} strokeWidth={1.4} />
+                  {hasNotification && (
+                    <span className="absolute -top-1 -end-1 flex h-2.5 w-2.5">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
+                      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary ring-2 ring-white" />
+                    </span>
+                  )}
+                </span>
+
                 <span>{t("navigation.myOrders")}</span>
               </NavLink>
               <NavLink
