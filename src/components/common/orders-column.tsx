@@ -4,9 +4,7 @@ import { OrderWithMenuItems } from "@/types/types";
 import { cn } from "cn";
 import { useTranslations } from "next-intl";
 import { Check } from "lucide-react";
-import { authClient } from "@/lib/auth-client";
 import Order from "../kitchen/order";
-import { OrderSkeleton } from "./order-skeleton";
 
 export const colorsScheme = {
   blue: {
@@ -43,12 +41,17 @@ type columnProps = {
   color: keyof typeof colorsScheme;
   orders: OrderWithMenuItems[];
   title: string;
+  role: string;
 };
-export default function OrdersColumn({ color, orders, title }: columnProps) {
+export default function OrdersColumn({
+  color,
+  orders,
+  title,
+  role,
+}: columnProps) {
   const scheme = colorsScheme[color];
   const t = useTranslations("kitchen");
 
-  const { data: session, isPending } = authClient.useSession();
   return (
     <section
       className={cn("rounded-md bg-card border min-h-[500px]", scheme.border)}
@@ -73,21 +76,10 @@ export default function OrdersColumn({ color, orders, title }: columnProps) {
         </span>
       </div>
       <div className="flex-1 p-3">
-        {isPending ? (
-          <ul className="space-y-3">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <OrderSkeleton key={index} />
-            ))}
-          </ul>
-        ) : orders.length > 0 ? (
+        {orders.length > 0 ? (
           <ul className="space-y-3">
             {orders.map((order) => (
-              <Order
-                role={session!.user.role}
-                key={order.id}
-                order={order}
-                color={color}
-              />
+              <Order role={role} key={order.id} order={order} color={color} />
             ))}
           </ul>
         ) : (

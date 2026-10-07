@@ -47,5 +47,5 @@ export default async function kitchen({
     },
   });
 
-  return <OrdersContainer orders={orders} />;
+  return <OrdersContainer orders={orders} role={session?.user.role} />;
 }

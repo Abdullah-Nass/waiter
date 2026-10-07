@@ -11,8 +11,10 @@ import { useEffect } from "react";
 
 export default function OrdersContainer({
   orders,
+  role = "WAITER",
 }: {
   orders: OrderWithMenuItems[];
+  role?: string;
 }) {
   const t = useTranslations();
 
@@ -51,16 +53,23 @@ export default function OrdersContainer({
   return (
     <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 my-5">
       <div className="grid sm:grid-cols-3 gap-3">
-        <OrdersColumn color={"blue"} orders={newOrders} title="newOrders" />
+        <OrdersColumn
+          color={"blue"}
+          orders={newOrders}
+          title="newOrders"
+          role={role}
+        />
         <OrdersColumn
           color={"yellow"}
           orders={progessOrders}
           title="inProgressOrders"
+          role={role}
         />
         <OrdersColumn
           color={"green"}
           orders={readyOrders}
           title="readyOrders"
+          role={role}
         />
       </div>
     </div>
