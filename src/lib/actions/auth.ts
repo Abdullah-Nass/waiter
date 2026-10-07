@@ -12,8 +12,8 @@ import {
   StaffFormValues,
   staffSchema,
 } from "../validation";
-import { redirect } from "next/navigation";
 import { APIError } from "better-auth";
+import { redirect } from "@/i18n/routing";
 
 export async function getStaff() {
   try {
@@ -161,7 +161,9 @@ export async function deleteStaffMember(userId: string) {
   }
 }
 
-export async function login(values: LoginFormValues) {
+export async function login(values: LoginFormValues, locale: string) {
+  console.log("LOGIN LOCALE:", locale);
+
   try {
     const parsed = loginSchema.safeParse(values);
 
@@ -200,5 +202,5 @@ export async function login(values: LoginFormValues) {
     };
   }
 
-  redirect("/");
+  redirect({ href: "/", locale });
 }

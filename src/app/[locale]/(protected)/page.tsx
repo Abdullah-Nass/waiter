@@ -1,12 +1,15 @@
 import { redirect } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
 import { ROLE_HOME } from "@/lib/permissions";
-import { getLocale } from "next-intl/server";
 import { headers } from "next/headers";
 
-export default async function page() {
+export default async function page({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
   const session = await auth.api.getSession({ headers: await headers() });
-  const locale = await getLocale();
+  const { locale } = await params;
 
   if (session) {
     redirect({

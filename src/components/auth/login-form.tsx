@@ -3,7 +3,7 @@
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import { LoginFormValues, loginSchema } from "@/lib/validation";
 import { login } from "@/lib/actions/auth";
 
 export default function LoginForm() {
+  const locale = useLocale();
   const t = useTranslations();
 
   const [isPending, startTransition] = useTransition();
@@ -31,10 +32,13 @@ export default function LoginForm() {
     clearErrors("root");
 
     startTransition(async () => {
-      const res = await login({
-        email: data.email,
-        password: data.password,
-      });
+      const res = await login(
+        {
+          email: data.email,
+          password: data.password,
+        },
+        locale,
+      );
 
       if (res && !res.success) {
         setError("root", {
