@@ -74,7 +74,11 @@ export default function MenuContainer({
           window.history.replaceState(null, "", `?category=${id}`);
         }}
       />
-      <MenuList items={activeCategory?.items} categories={categories} />
+      <MenuList
+        items={activeCategory?.items}
+        categories={categories}
+        role={role}
+      />
       {role === "WAITER" && <CartFloat />}
     </div>
   );
