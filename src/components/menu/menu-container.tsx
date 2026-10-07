@@ -39,22 +39,27 @@ export default function MenuContainer({
   useEffect(() => {
     const socket = getSocket(role);
 
-    socket.on(
-      "menu:item-availability",
-      ({ id, available }: { id: number; available: boolean }) => {
-        queryClient.setQueryData(["menu"], (prev: CategoryWithItems[]) =>
-          prev.map((cat) => ({
-            ...cat,
-            items: cat.items.map((item) =>
-              item.id === id ? { ...item, available } : item,
-            ),
-          })),
-        );
-      },
-    );
+    const handleItemAvailability = ({
+      id,
+      available,
+    }: {
+      id: number;
+      available: boolean;
+    }) => {
+      queryClient.setQueryData(["menu"], (prev: CategoryWithItems[]) =>
+        prev.map((cat) => ({
+          ...cat,
+          items: cat.items.map((item) =>
+            item.id === id ? { ...item, available } : item,
+          ),
+        })),
+      );
+    };
+
+    socket.on("menu:item-availability", handleItemAvailability);
 
     return () => {
-      socket.off("menu:item-availability");
+      socket.off("menu:item-availability", handleItemAvailability);
     };
   }, [role, queryClient]);
 
