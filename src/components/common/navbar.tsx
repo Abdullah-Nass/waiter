@@ -163,6 +163,7 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
             className="w-full justify-start font-semibold leading-none"
             href={"/menu"}
             aria-label={t("metadata.menuBtn")}
+            onClick={() => setMobileMenuOpen(false)}
           >
             <UtensilsCrossed size={20} strokeWidth={1.4} />
             <span>{t("navigation.menu")}</span>
@@ -172,6 +173,7 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
               className="w-full justify-start font-semibold leading-none"
               href={"/staff"}
               aria-label={t("metadata.staffBtn")}
+              onClick={() => setMobileMenuOpen(false)}
             >
               <IdCard size={20} strokeWidth={1.4} />
               <span>{t("navigation.staff")}</span>
@@ -182,6 +184,7 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
               className="w-full justify-start font-semibold leading-none"
               href="/kitchen"
               aria-label={t("metadata.kitchenBtn")}
+              onClick={() => setMobileMenuOpen(false)}
             >
               <ChefHat size={20} strokeWidth={1.4} />
               <span>{t("navigation.kitchenQueue")}</span>
@@ -193,6 +196,7 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
                 href="/my-orders"
                 className="w-full justify-start font-semibold leading-none"
                 aria-label={t("metadata.checkoutBtn")}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="relative inline-flex items-center justify-center">
                   <ClipboardList size={20} strokeWidth={1.4} />
@@ -210,6 +214,7 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
                 className="w-full justify-start font-semibold leading-none"
                 href="/checkout"
                 aria-label={t("metadata.checkoutBtn")}
+                onClick={() => setMobileMenuOpen(false)}
               >
                 <ShoppingCart size={20} strokeWidth={1.4} />
                 <p>{t("navigation.orderSummary")}</p>
