@@ -19,14 +19,13 @@
   "navigation": {
     "kitchenQueue": "Kitchen Display",
     "categories": "Categories",
-    "user": "User",
     "orderSummary": "Order Summary",
     "menu": "Menu",
     "newCategory": "New category",
     "myOrders": "My Orders",
-    "staff": "Staff"
+    "staff": "Staff",
+    "emptyCategory": "This category is empty"
   },
-
   "orders": {
     "status": {
       "sent": "Sent to Kitchen",

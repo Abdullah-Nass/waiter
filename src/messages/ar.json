@@ -24,7 +24,8 @@
     "menu": "قائمة الطعام",
     "newCategory": "قسم جديد",
     "myOrders": "طلباتي",
-    "staff": "فريق العمل"
+    "staff": "فريق العمل",
+    "emptyCategory": "هذا القسم فارغ"
   },
 
   "orders": {

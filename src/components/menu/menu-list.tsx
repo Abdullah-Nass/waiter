@@ -8,6 +8,7 @@ import AdminDrawer from "./admin-drawer";
 import KitchenDrawer from "./kitchen-drawer";
 import Item from "./item";
 import AddItemModal from "./add-item-modal";
+import EmptyCategory from "./empty-category";
 
 export default function MenuList({
   items,
@@ -34,10 +35,10 @@ export default function MenuList({
   });
   return (
     <div className="container max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
-      <div className="grid sm:flex flex-wrap gap-2">
+      <div className="relative grid sm:flex flex-wrap gap-2">
         {role === "ADMIN" && <AddItemModal categories={categories} />}
         {items.length < 1 && role !== "ADMIN" ? (
-          <div>No Items</div>
+          <EmptyCategory />
         ) : (
           items.map((item) => (
             <Item
