@@ -53,6 +53,7 @@ Three roles with layout-level route protection:
 | State     | Zustand (per-request provider pattern) + TanStack Query |
 | Forms     | React Hook Form + Zod                                   |
 | i18n      | next-intl                                               |
+| Testing   | Vitest + React Testing Library                          |
 
 ---
 
@@ -61,6 +62,15 @@ Three roles with layout-level route protection:
 ### Role-based routing
 
 Authentication and role redirection are handled in the `(protected)` layout — a single server component that checks the session and redirects unauthenticated users to `/login`. Authenticated users are redirected to their role's home page via a `ROLE_HOME` map (`ADMIN → /staff`, `WAITER → /menu`, `KITCHEN → /kitchen`), so no role can accidentally land on another role's default page. Individual pages do their own role checks for finer-grained access control.
+
+---
+
+## Testing
+
+30+ automated tests written with **Vitest** and **React Testing Library**:
+
+- **Zustand cart store** — isolated unit tests for `addItem`, `clearCart`, and cart totals
+- **UI components** — bilingual, role-aware components tested with mocked hooks, covering rendering per role and per locale
 
 ---
 
