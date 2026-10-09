@@ -1,5 +1,8 @@
 # Waiter — Restaurant Ordering System
 
+[![Live Demo](https://img.shields.io/badge/Demo-Live%20Site-blue?style=for-the-badge&logo=vercel)](https://waiter-jm3w.onrender.com)
+[![YouTube Walkthrough](https://img.shields.io/badge/YouTube-Video%20Demo-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=Y7nLLQ_kL0s)
+
 A real-time, bilingual (Arabic/English) restaurant ordering system built with Next.js 15, Socket.io, and PostgreSQL. Waiters take orders from a menu and send them to the kitchen instantly. Kitchen staff manage order progress in a live three-column board. Admins manage the menu and staff accounts.
 
 ---
