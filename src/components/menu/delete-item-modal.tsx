@@ -1,14 +1,18 @@
 import { ConfirmDialog } from "../common/confirm-modal";
-import { Button } from "../ui/button";
-import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { MenuItem } from "@prisma/client";
 import { deleteItem } from "@/lib/actions/admin";
 import toast from "react-hot-toast";
-import { cn } from "cn";
 import { useQueryClient } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 
-export default function DeleteItemModal({ item }: { item: MenuItem }) {
+export default function DeleteItemModal({
+  item,
+  trigger
+}: {
+  item: MenuItem;
+  trigger: ReactNode
+}) {
   const t = useTranslations();
   const queryClient = useQueryClient();
   const handelSubmit = async () => {
@@ -24,19 +28,7 @@ export default function DeleteItemModal({ item }: { item: MenuItem }) {
   };
   return (
     <ConfirmDialog
-      trigger={
-        <Button
-          type="button"
-          variant="icon"
-          size="icon"
-          onClick={(e) => e.stopPropagation()} // Prevents card selection
-          className={cn("absolute top-4 end-4 h-6 w-6 hover:text-gray-600")}
-          aria-label={t("metadata.deleteItemBtn")}
-          asChild
-        >
-          <X />
-        </Button>
-      }
+      trigger={trigger}
       destructive={true}
       title={t("admin.deleteItem.title", {
         item: `${item.nameEn} | ${item.nameAr}`,

@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { Button } from "../ui/button";
+import { X } from "lucide-react";
 import AddCategoryModal from "./add-category-modal";
 import DeleteCategoryModal from "./delete-category-modal";
 
@@ -97,7 +98,22 @@ export default function CategoryList({
                   </span>
                 </Link>
                 {role === "ADMIN" && (
-                  <DeleteCategoryModal category={category} />
+                  <DeleteCategoryModal
+                    category={category}
+                    trigger={
+                      <Button
+                        type="button"
+                        variant="icon"
+                        size="icon"
+                        onClick={(e) => e.stopPropagation()}
+                        className="h-6 w-6 hover:bg-background/20"
+                        aria-label={t("metadata.deleteCategoryBtn")}
+                        asChild
+                      >
+                        <X />
+                      </Button>
+                    }
+                  />
                 )}
               </div>
             );

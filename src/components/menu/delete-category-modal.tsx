@@ -1,16 +1,17 @@
 import { ConfirmDialog } from "../common/confirm-modal";
-import { Button } from "../ui/button";
-import { X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { Category } from "@prisma/client";
 import { deleteCategory } from "@/lib/actions/admin";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import type { ReactNode } from "react";
 
 export default function DeleteCategoryModal({
   category,
+  trigger
 }: {
   category: Category;
+  trigger: ReactNode
 }) {
   const t = useTranslations();
   const queryClient = useQueryClient();
@@ -28,19 +29,7 @@ export default function DeleteCategoryModal({
 
   return (
     <ConfirmDialog
-      trigger={
-        <Button
-          type="button"
-          variant="icon"
-          size="icon"
-          onClick={(e) => e.stopPropagation()}
-          className="h-6 w-6 hover:bg-background/20"
-          aria-label={t("metadata.deleteCategoryBtn")}
-          asChild
-        >
-          <X />
-        </Button>
-      }
+      trigger={trigger}
       destructive={true}
       title={t("admin.deleteCategory.title", {
         category: `${category.nameEn} | ${category.nameAr}`,

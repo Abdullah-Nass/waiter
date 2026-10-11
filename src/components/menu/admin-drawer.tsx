@@ -11,6 +11,7 @@ import { MenuItem } from "@prisma/client";
 import { EditNameModal } from "./edit-name-modal";
 import { EditDescModal } from "./edit-desc-modal";
 import { EditPriceModal } from "./edit-price-modal";
+import DeleteItemModal from "./delete-item-modal";
 
 export default function AdminDrawer({
   item,
@@ -46,7 +47,14 @@ export default function AdminDrawer({
       </div>
       <div className="space-y-5 p-4 pb-0"></div>
       <DrawerFooter className="pt-6">
-        <Button className="w-full">{t("edit.delete")}</Button>
+        <DeleteItemModal
+          item={item}
+          trigger={
+            <Button className="w-full">
+              {t("edit.delete")}
+            </Button>
+          }
+        />
         <DrawerClose asChild>
           <Button variant={"outline"} className="w-full">
             {t("common.cancel")}

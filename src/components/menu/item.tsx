@@ -1,6 +1,8 @@
 import type { MenuItem } from "@prisma/client";
 import { cn } from "cn";
 import { useLocale, useTranslations } from "next-intl";
+import { Button } from "@/components/ui/button";
+import { X } from "lucide-react";
 import DeleteItemModal from "./delete-item-modal";
 
 export default function Item({
@@ -28,7 +30,24 @@ export default function Item({
           : "border-border bg-card shadow-xs hover:border-primary/40 hover:shadow-md hover:-translate-y-0.5 cursor-pointer",
       )}
     >
-      {role === "ADMIN" && <DeleteItemModal item={item} />}
+      {role === "ADMIN" && (
+    <DeleteItemModal
+      item={item}
+      trigger={
+        <Button
+          type="button"
+          variant="icon"
+          size="icon"
+          onClick={(e) => e.stopPropagation()} // Prevents card selection
+          className={cn("absolute top-4 end-4 h-6 w-6 hover:text-gray-600")}
+          aria-label={t("metadata.deleteItemBtn")}
+          asChild
+        >
+          <X />
+        </Button>
+      }
+    />
+  )}
       <h3 className="font-semibold">
         {locale === "ar" ? item.nameAr : item.nameEn}
       </h3>
