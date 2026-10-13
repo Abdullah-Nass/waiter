@@ -77,6 +77,19 @@ Authentication and role redirection are handled in the `(protected)` layout — 
 
 ---
 
+## Performance
+
+Lighthouse audit (production build):
+
+| Metric         | Score  |
+| -------------- | ------ |
+| Performance    | 93–100 |
+| Accessibility  | 100    |
+| Best Practices | 100    |
+| SEO            | 100    |
+
+---
+
 ## Project structure
 
 ```text
