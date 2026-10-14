@@ -1,8 +1,8 @@
 import StaffContaienr from "@/components/staff/staff-container";
 import { redirect } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
+import { fetchStaff } from "@/lib/api/staff";
 import { ROLE_HOME } from "@/lib/permissions";
-import { db } from "@/lib/prisma/db";
 import { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
@@ -38,9 +38,7 @@ export default async function staff({
     });
     return;
   }
-  const staffMembers = await db.user.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  const staffMembers = await fetchStaff();
 
   return <StaffContaienr staffMembers={staffMembers} />;
 }

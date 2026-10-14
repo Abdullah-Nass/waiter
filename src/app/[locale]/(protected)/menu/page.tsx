@@ -1,7 +1,7 @@
 import MenuContainer from "@/components/menu/menu-container";
 import { redirect } from "@/i18n/routing";
 import { auth } from "@/lib/auth";
-import { db } from "@/lib/prisma/db";
+import { fetchMenu } from "@/lib/api/menu";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { headers } from "next/headers";
@@ -33,14 +33,7 @@ export default async function MenuPage({
   const resolvedSearchParams = await searchParams;
   const session = await auth.api.getSession({ headers: await headers() });
 
-  const categories = await db.category.findMany({
-    orderBy: { sortOrder: "asc" },
-    include: {
-      items: {
-        orderBy: { id: "asc" },
-      },
-    },
-  });
+  const categories = await fetchMenu();
 
   if (!resolvedSearchParams.category && categories.length > 0) {
     redirect({
