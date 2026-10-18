@@ -46,46 +46,29 @@ export async function createStaffMember(values: StaffFormValues) {
     await verifyAdmin();
 
     const parsed = staffSchema.safeParse(values);
-
     if (!parsed.success) {
       return { success: false, error: "admin.staff.errors.invalidFields" };
     }
+
     const { name, email, password, role } = parsed.data;
 
-    const hashedPassword = await hashPassword(password);
+    const existing = await db.user.findUnique({ where: { email } });
+    if (existing) {
+      return { success: false, error: "admin.staff.errors.emailTaken" };
+    }
 
-    await db.user.create({
-      data: {
-        name,
-        email,
-        role,
-        emailVerified: true,
-        accounts: {
-          create: {
-            providerId: "credential",
-            accountId: email,
-            password: hashedPassword,
-          },
-        },
-      },
+    await auth.api.signUpEmail({
+      body: { name, email, password },
+    });
+
+    await db.user.update({
+      where: { email },
+      data: { role, emailVerified: true },
     });
 
     return { success: true };
-  } catch (error) {
-    if (
-      error instanceof Prisma.PrismaClientKnownRequestError &&
-      error.code === "P2002"
-    ) {
-      return {
-        success: false,
-        error: "admin.staff.errors.emailTaken",
-      };
-    }
-
-    return {
-      success: false,
-      error: "common.errorOccurred",
-    };
+  } catch {
+    return { success: false, error: "common.errorOccurred" };
   }
 }
 
@@ -162,13 +145,11 @@ export async function deleteStaffMember(userId: string) {
 }
 
 export async function login(values: LoginFormValues, locale: string) {
-  console.log("LOGIN LOCALE:", locale);
-
   try {
     const parsed = loginSchema.safeParse(values);
 
     if (!parsed.success) {
-      return { success: false, error: "auth.invalidFields" };
+      return { success: false, error: "auth" };
     }
 
     const { email, password } = parsed.data;

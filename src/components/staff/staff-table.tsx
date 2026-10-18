@@ -53,7 +53,7 @@ export default function StaffTable({ staffMembers }: { staffMembers: User[] }) {
                   {isPending ? (
                     <LineSkeleton className="h-4 w-12 self-end" />
                   ) : (
-                    session!.user.id !== member.id && (
+                    session?.user.id !== member.id && (
                       <DeleteStaff userId={member.id} username={member.name} />
                     )
                   )}

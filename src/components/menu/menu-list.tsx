@@ -28,11 +28,7 @@ export default function MenuList({
     setSelectedItem(item);
     setIsDrawerOpen(true);
   };
-  console.log({
-    role,
-    items,
-    itemsLength: items?.length,
-  });
+
   return (
     <div className="container max-w-7xl mx-auto p-4 sm:px-6 lg:px-8">
       <div className="relative grid sm:flex flex-wrap gap-2">
