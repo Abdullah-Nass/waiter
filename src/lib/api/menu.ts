@@ -3,9 +3,7 @@ export type CategoryWithItems = Category & { items: MenuItem[] };
 
 export async function fetchMenu(): Promise<CategoryWithItems[]> {
   const baseURL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-  const res = await fetch(`${baseURL}/api/menu`, {
-    next: { revalidate: 60 } // Revalidate every 60 seconds
-  });
+  const res = await fetch(`${baseURL}/api/menu`);
 
   if (!res.ok) {
     throw new Error(`Failed to fetch menu: ${res.status}`);
