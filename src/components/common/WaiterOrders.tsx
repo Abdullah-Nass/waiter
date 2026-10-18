@@ -12,7 +12,7 @@ export function WaiterOrders() {
   return (
     <NavLink
       href="/my-orders"
-      className="w-full sm:w-fit justify-start inline-flex items-center gap-2 font-semibold leading-none"
+      className="w-full md:w-fit justify-start inline-flex items-center gap-2 font-semibold leading-none"
       aria-label={t("metadata.checkoutBtn")}
     >
       <span className="relative inline-flex items-center justify-center">

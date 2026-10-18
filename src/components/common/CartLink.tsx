@@ -15,7 +15,7 @@ export function CartLink() {
   return (
     <NavLink
       href="/checkout"
-      className="w-full sm:w-fit justify-start font-semibold leading-none"
+      className="w-full md:w-fit justify-start font-semibold leading-none"
       aria-label={t("metadata.checkoutBtn")}
     >
       <ShoppingCart size={20} strokeWidth={1.4} />
