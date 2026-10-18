@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { useCartHydrated } from "@/lib/stores/cart";
 import { useCartStore } from "@/providers/cart-provider";
 
-export function CartLink() {
+export function CartLink({ onClick }: { onClick?: () => void }) {
   const t = useTranslations();
   const isHydrated = useCartHydrated();
   const totalItems = useCartStore((state) => state.totalItems());
@@ -17,6 +17,7 @@ export function CartLink() {
       href="/checkout"
       className="w-full md:w-fit justify-start font-semibold leading-none"
       aria-label={t("metadata.checkoutBtn")}
+      onClick={onClick}
     >
       <ShoppingCart size={20} strokeWidth={1.4} />
       <span>{t("navigation.orderSummary")}</span>

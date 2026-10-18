@@ -69,7 +69,7 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
             )}
             <LanguageSwitcher />
             <Logout />
-          </div>{" "}
+          </div>
           {/* Mobile Menu Toggle Button */}
           <div className="flex md:hidden items-center">
             <button
@@ -82,13 +82,13 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
                   "block w-6 h-0.5 bg-foreground rounded-full transition-all duration-300 ease-in-out",
                   mobileMenuOpen && "translate-y-2 rotate-45",
                 )}
-              />{" "}
+              />
               <span
                 className={cn(
                   "block w-6 h-0.5 bg-foreground rounded-full transition-all duration-300 ease-in-out",
                   mobileMenuOpen ? "opacity-0" : "opacity-100",
                 )}
-              />{" "}
+              />
               <span
                 className={cn(
                   "block w-6 h-0.5 bg-foreground rounded-full transition-all duration-300 ease-in-out",
@@ -139,8 +139,8 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
           )}
           {userRole === "WAITER" && (
             <>
-              <WaiterOrders />
-              <CartLink />
+              <WaiterOrders onClick={() => setMobileMenuOpen(false)} />
+              <CartLink onClick={() => setMobileMenuOpen(false)} />
             </>
           )}
           <div className="flex justify-between">

@@ -5,7 +5,7 @@ import { ClipboardList } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useCartStore } from "@/providers/cart-provider";
 
-export function WaiterOrders() {
+export function WaiterOrders({ onClick }: { onClick?: () => void }) {
   const t = useTranslations();
   const hasNotification = useCartStore((state) => state.hasNotification);
 
@@ -14,6 +14,7 @@ export function WaiterOrders() {
       href="/my-orders"
       className="w-full md:w-fit justify-start inline-flex items-center gap-2 font-semibold leading-none"
       aria-label={t("metadata.checkoutBtn")}
+      onClick={onClick}
     >
       <span className="relative inline-flex items-center justify-center">
         <ClipboardList size={20} strokeWidth={1.4} />

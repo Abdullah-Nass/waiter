@@ -14,7 +14,13 @@ interface NavLinkProps extends BaseLinkProps {
   activeClassName?: string;
 }
 
-export function NavLink({ href, children, className, ...props }: NavLinkProps) {
+export function NavLink({
+  href,
+  children,
+  className,
+  onClick,
+  ...props
+}: NavLinkProps) {
   const pathname = usePathname();
   const targetHref = href.toString();
 
@@ -28,7 +34,12 @@ export function NavLink({ href, children, className, ...props }: NavLinkProps) {
       asChild
       className={cn("flex items-center gap-2.5", className)}
     >
-      <Link href={href} aria-current={isActive ? "page" : undefined} {...props}>
+      <Link
+        href={href}
+        aria-current={isActive ? "page" : undefined}
+        onClick={onClick}
+        {...props}
+      >
         {children}
       </Link>
     </Button>
