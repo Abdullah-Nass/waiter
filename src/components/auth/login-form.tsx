@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LoginFormValues, loginSchema } from "@/lib/validation";
 import { login } from "@/lib/actions/auth";
+import { PasswordInput } from "./password-input";
 
 export default function LoginForm() {
   const locale = useLocale();
@@ -75,12 +76,8 @@ export default function LoginForm() {
       <div className="space-y-2">
         <Label htmlFor="password">{t("auth.password")}</Label>
 
-        <Input
-          id="password"
-          type="password"
-          autoComplete="current-password"
+        <PasswordInput
           placeholder={t("auth.passwordPlaceholder")}
-          disabled={isPending}
           aria-invalid={!!errors.password}
           {...register("password")}
         />
