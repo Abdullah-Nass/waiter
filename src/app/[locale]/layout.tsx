@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import QueryProvider from "@/providers/query-provider";
+import DirectionProvider from "@/providers/direction-provider";
 import { Toaster } from "react-hot-toast";
 
 const cairoSans = Cairo({
@@ -39,9 +40,11 @@ export default async function RootLayout({
       <body className="min-h-dvh flex flex-col">
         <NextIntlClientProvider locale={locale} messages={messages}>
           <QueryProvider>
-            <Toaster position="top-right" />
+            <DirectionProvider dir={locale === "ar" ? "rtl" : "ltr"}>
+              <Toaster position="top-right" />
 
-            {children}
+              {children}
+            </DirectionProvider>
           </QueryProvider>
         </NextIntlClientProvider>
       </body>

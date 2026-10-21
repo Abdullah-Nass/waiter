@@ -30,8 +30,9 @@ export default function Logout() {
       onClick={handleLogout}
       disabled={isPending}
       aria-label={t("metadata.logoutBtn")}
+      className="flex justify-start md:w-full"
     >
-      <LogOut />
+      <LogOut className="size-4" />
       <span> {t("auth.logout")}</span>
     </Button>
   );

@@ -12,6 +12,7 @@ import UserIcon from "./user-icon";
 import Logout from "../auth/logout";
 import { WaiterOrders } from "./WaiterOrders";
 import { CartLink } from "./CartLink";
+import Dropdown from "./dropdown";
 export default function Navbar({ userName, userRole }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const title = usePageTitle();
@@ -24,14 +25,8 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
           <div className="flex items-center gap-4 min-w-0">
             <h1 className="text-xl font-bold text-foreground truncate tracking-tight">
               {title}
-            </h1>{" "}
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1 bg-secondary text-secondary-foreground border border-border rounded-full font-medium text-sm">
-              <UserIcon userRole={userRole} />{" "}
-              <span>
-                <strong className="font-semibold"> {userName}</strong>
-              </span>
-            </div>
-          </div>{" "}
+            </h1>
+          </div>
           <div className="hidden md:flex items-center gap-3">
             <NavLink
               href="/menu"
@@ -67,8 +62,7 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
                 <CartLink />
               </>
             )}
-            <LanguageSwitcher />
-            <Logout />
+            <Dropdown userName={userName} userRole={userRole} />
           </div>
           {/* Mobile Menu Toggle Button */}
           <div className="flex md:hidden items-center">
@@ -98,12 +92,12 @@ export default function Navbar({ userName, userRole }: NavbarProps) {
             </button>
           </div>
         </div>
-      </div>{" "}
+      </div>
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
         <div className="absolute flex flex-col top-full left-0 right-0 md:hidden border-t border-border bg-background/95 backdrop-blur px-4 pt-3 pb-4 gap-2.5 shadow-lg animate-in fade-in-0 duration-200">
           <div className="flex items-center justify-center gap-2 px-3 py-1 bg-secondary text-secondary-foreground border border-border rounded-full font-medium text-md">
-            <UserIcon userRole={userRole} />{" "}
+            <UserIcon userRole={userRole} />
             <span className="font-semibold">{userName}</span>
           </div>
           <NavLink

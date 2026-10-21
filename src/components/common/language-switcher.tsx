@@ -33,6 +33,7 @@ export default function LanguageSwitcher() {
       disabled={isPending}
       variant={"ghost"}
       aria-label={t("metadata.langaugeBtn", { label })}
+      className="flex justify-start md:w-full"
     >
       <Globe className="size-4" /> <span>{label}</span>
     </Button>
